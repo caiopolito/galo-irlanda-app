@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { ThemeProvider } from '@mui/material';
-import customTheme from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from './theme';
 
 type AppProviderProps = {
   children: React.ReactNode;
 };
 
 export const AppProvider = ({ children }: AppProviderProps) => {
-  const theme = customTheme()
-
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       {children}
     </ThemeProvider>
   );

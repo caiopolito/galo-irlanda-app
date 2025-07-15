@@ -1,13 +1,12 @@
+import { Box } from '@mui/material';
+import HomeLastEvents from 'features/home/components/last-events/HomeLastEvents';
+import React from 'react';
+
 const LandingRoute = () => {
   return (
-    <>
-      <div>
-        <div>
-          <h2>Bulletproof React</h2>
-          <p>Showcasing Best Practices For Building React Applications</p>
-        </div>
-      </div>
-    </>
+    <React.Fragment>
+        <HomeLastEvents />
+    </React.Fragment>
   );
 };
 
