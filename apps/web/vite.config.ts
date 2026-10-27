@@ -6,6 +6,10 @@ import { imagetools } from "vite-imagetools";
 
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
+	// Em desenvolvimento, /api vai para a API .NET: mesmo endereço, sem CORS.
+	server: {
+		proxy: { "/api": "http://localhost:5137" },
+	},
 	plugins: [
 		cloudflare({ viteEnvironment: { name: "ssr" } }),
 		imagetools({

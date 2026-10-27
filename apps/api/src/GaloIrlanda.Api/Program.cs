@@ -29,11 +29,15 @@ services.AddProblemDetails();
 services.AddExceptionHandler<DbExceptionHandler>();
 services.AddGaloOpenApi();
 services.ConfigureHttpJsonOptions(options =>
-    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower)));
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower));
+    // Números só como números: o client TypeScript gerado fica com "number", não "number | string".
+    options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
+});
 services.AddSingleton(TimeProvider.System);
 services.AddValidatorsFromAssemblyContaining<Program>(includeInternalTypes: true);
 services.AddGaloData(builder.Configuration);
-services.AddGaloAuth();
+services.AddGaloAuth(builder.Environment);
 services.AddAuthFeature(builder.Configuration);
 services.AddEmail(builder.Configuration, builder.Environment);
 services.AddGaloCors(builder.Configuration);

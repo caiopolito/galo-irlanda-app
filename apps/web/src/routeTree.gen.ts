@@ -10,33 +10,229 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCidadesRouteImport } from './routes/admin/cidades'
+import { Route as AdminConfiguracoesRouteImport } from './routes/admin/configuracoes'
+import { Route as AdminFotosRouteImport } from './routes/admin/fotos'
+import { Route as AdminHistoricoRouteImport } from './routes/admin/historico'
+import { Route as AdminLocaisRouteImport } from './routes/admin/locais'
+import { Route as AdminMarcosRouteImport } from './routes/admin/marcos'
+import { Route as AdminUsuariosRouteImport } from './routes/admin/usuarios'
+import { Route as AdminEventosIndexRouteImport } from './routes/admin/eventos/index'
+import { Route as AdminEventosIdRouteImport } from './routes/admin/eventos/$id'
+import { Route as AdminEventosNovoRouteImport } from './routes/admin/eventos/novo'
+import { Route as AdminNoticiasIndexRouteImport } from './routes/admin/noticias/index'
+import { Route as AdminNoticiasIdRouteImport } from './routes/admin/noticias/$id'
+import { Route as AdminNoticiasNovoRouteImport } from './routes/admin/noticias/novo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCidadesRoute = AdminCidadesRouteImport.update({
+  id: '/cidades',
+  path: '/cidades',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminConfiguracoesRoute = AdminConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFotosRoute = AdminFotosRouteImport.update({
+  id: '/fotos',
+  path: '/fotos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHistoricoRoute = AdminHistoricoRouteImport.update({
+  id: '/historico',
+  path: '/historico',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLocaisRoute = AdminLocaisRouteImport.update({
+  id: '/locais',
+  path: '/locais',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarcosRoute = AdminMarcosRouteImport.update({
+  id: '/marcos',
+  path: '/marcos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventosIndexRoute = AdminEventosIndexRouteImport.update({
+  id: '/eventos/',
+  path: '/eventos/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventosIdRoute = AdminEventosIdRouteImport.update({
+  id: '/eventos/$id',
+  path: '/eventos/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventosNovoRoute = AdminEventosNovoRouteImport.update({
+  id: '/eventos/novo',
+  path: '/eventos/novo',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNoticiasIndexRoute = AdminNoticiasIndexRouteImport.update({
+  id: '/noticias/',
+  path: '/noticias/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNoticiasIdRoute = AdminNoticiasIdRouteImport.update({
+  id: '/noticias/$id',
+  path: '/noticias/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNoticiasNovoRoute = AdminNoticiasNovoRouteImport.update({
+  id: '/noticias/novo',
+  path: '/noticias/novo',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/entrar': typeof EntrarRoute
+  '/admin/cidades': typeof AdminCidadesRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/fotos': typeof AdminFotosRoute
+  '/admin/historico': typeof AdminHistoricoRoute
+  '/admin/locais': typeof AdminLocaisRoute
+  '/admin/marcos': typeof AdminMarcosRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/eventos/$id': typeof AdminEventosIdRoute
+  '/admin/eventos/novo': typeof AdminEventosNovoRoute
+  '/admin/noticias/$id': typeof AdminNoticiasIdRoute
+  '/admin/noticias/novo': typeof AdminNoticiasNovoRoute
+  '/admin/eventos/': typeof AdminEventosIndexRoute
+  '/admin/noticias/': typeof AdminNoticiasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/entrar': typeof EntrarRoute
+  '/admin/cidades': typeof AdminCidadesRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/fotos': typeof AdminFotosRoute
+  '/admin/historico': typeof AdminHistoricoRoute
+  '/admin/locais': typeof AdminLocaisRoute
+  '/admin/marcos': typeof AdminMarcosRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/eventos/$id': typeof AdminEventosIdRoute
+  '/admin/eventos/novo': typeof AdminEventosNovoRoute
+  '/admin/noticias/$id': typeof AdminNoticiasIdRoute
+  '/admin/noticias/novo': typeof AdminNoticiasNovoRoute
+  '/admin/eventos': typeof AdminEventosIndexRoute
+  '/admin/noticias': typeof AdminNoticiasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/entrar': typeof EntrarRoute
+  '/admin/cidades': typeof AdminCidadesRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/fotos': typeof AdminFotosRoute
+  '/admin/historico': typeof AdminHistoricoRoute
+  '/admin/locais': typeof AdminLocaisRoute
+  '/admin/marcos': typeof AdminMarcosRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/eventos/$id': typeof AdminEventosIdRoute
+  '/admin/eventos/novo': typeof AdminEventosNovoRoute
+  '/admin/noticias/$id': typeof AdminNoticiasIdRoute
+  '/admin/noticias/novo': typeof AdminNoticiasNovoRoute
+  '/admin/eventos/': typeof AdminEventosIndexRoute
+  '/admin/noticias/': typeof AdminNoticiasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/entrar'
+    | '/admin/cidades'
+    | '/admin/configuracoes'
+    | '/admin/fotos'
+    | '/admin/historico'
+    | '/admin/locais'
+    | '/admin/marcos'
+    | '/admin/usuarios'
+    | '/admin/'
+    | '/admin/eventos/$id'
+    | '/admin/eventos/novo'
+    | '/admin/noticias/$id'
+    | '/admin/noticias/novo'
+    | '/admin/eventos/'
+    | '/admin/noticias/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/entrar'
+    | '/admin/cidades'
+    | '/admin/configuracoes'
+    | '/admin/fotos'
+    | '/admin/historico'
+    | '/admin/locais'
+    | '/admin/marcos'
+    | '/admin/usuarios'
+    | '/admin'
+    | '/admin/eventos/$id'
+    | '/admin/eventos/novo'
+    | '/admin/noticias/$id'
+    | '/admin/noticias/novo'
+    | '/admin/eventos'
+    | '/admin/noticias'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/entrar'
+    | '/admin/cidades'
+    | '/admin/configuracoes'
+    | '/admin/fotos'
+    | '/admin/historico'
+    | '/admin/locais'
+    | '/admin/marcos'
+    | '/admin/usuarios'
+    | '/admin/'
+    | '/admin/eventos/$id'
+    | '/admin/eventos/novo'
+    | '/admin/noticias/$id'
+    | '/admin/noticias/novo'
+    | '/admin/eventos/'
+    | '/admin/noticias/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  EntrarRoute: typeof EntrarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +244,161 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/cidades': {
+      id: '/admin/cidades'
+      path: '/cidades'
+      fullPath: '/admin/cidades'
+      preLoaderRoute: typeof AdminCidadesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/configuracoes': {
+      id: '/admin/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/admin/configuracoes'
+      preLoaderRoute: typeof AdminConfiguracoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/fotos': {
+      id: '/admin/fotos'
+      path: '/fotos'
+      fullPath: '/admin/fotos'
+      preLoaderRoute: typeof AdminFotosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/historico': {
+      id: '/admin/historico'
+      path: '/historico'
+      fullPath: '/admin/historico'
+      preLoaderRoute: typeof AdminHistoricoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/locais': {
+      id: '/admin/locais'
+      path: '/locais'
+      fullPath: '/admin/locais'
+      preLoaderRoute: typeof AdminLocaisRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marcos': {
+      id: '/admin/marcos'
+      path: '/marcos'
+      fullPath: '/admin/marcos'
+      preLoaderRoute: typeof AdminMarcosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/usuarios': {
+      id: '/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AdminUsuariosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/eventos/': {
+      id: '/admin/eventos/'
+      path: '/eventos'
+      fullPath: '/admin/eventos/'
+      preLoaderRoute: typeof AdminEventosIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/eventos/$id': {
+      id: '/admin/eventos/$id'
+      path: '/eventos/$id'
+      fullPath: '/admin/eventos/$id'
+      preLoaderRoute: typeof AdminEventosIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/eventos/novo': {
+      id: '/admin/eventos/novo'
+      path: '/eventos/novo'
+      fullPath: '/admin/eventos/novo'
+      preLoaderRoute: typeof AdminEventosNovoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/noticias/': {
+      id: '/admin/noticias/'
+      path: '/noticias'
+      fullPath: '/admin/noticias/'
+      preLoaderRoute: typeof AdminNoticiasIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/noticias/$id': {
+      id: '/admin/noticias/$id'
+      path: '/noticias/$id'
+      fullPath: '/admin/noticias/$id'
+      preLoaderRoute: typeof AdminNoticiasIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/noticias/novo': {
+      id: '/admin/noticias/novo'
+      path: '/noticias/novo'
+      fullPath: '/admin/noticias/novo'
+      preLoaderRoute: typeof AdminNoticiasNovoRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminCidadesRoute: typeof AdminCidadesRoute
+  AdminConfiguracoesRoute: typeof AdminConfiguracoesRoute
+  AdminFotosRoute: typeof AdminFotosRoute
+  AdminHistoricoRoute: typeof AdminHistoricoRoute
+  AdminLocaisRoute: typeof AdminLocaisRoute
+  AdminMarcosRoute: typeof AdminMarcosRoute
+  AdminUsuariosRoute: typeof AdminUsuariosRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminEventosIdRoute: typeof AdminEventosIdRoute
+  AdminEventosNovoRoute: typeof AdminEventosNovoRoute
+  AdminNoticiasIdRoute: typeof AdminNoticiasIdRoute
+  AdminNoticiasNovoRoute: typeof AdminNoticiasNovoRoute
+  AdminEventosIndexRoute: typeof AdminEventosIndexRoute
+  AdminNoticiasIndexRoute: typeof AdminNoticiasIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminCidadesRoute: AdminCidadesRoute,
+  AdminConfiguracoesRoute: AdminConfiguracoesRoute,
+  AdminFotosRoute: AdminFotosRoute,
+  AdminHistoricoRoute: AdminHistoricoRoute,
+  AdminLocaisRoute: AdminLocaisRoute,
+  AdminMarcosRoute: AdminMarcosRoute,
+  AdminUsuariosRoute: AdminUsuariosRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminEventosIdRoute: AdminEventosIdRoute,
+  AdminEventosNovoRoute: AdminEventosNovoRoute,
+  AdminNoticiasIdRoute: AdminNoticiasIdRoute,
+  AdminNoticiasNovoRoute: AdminNoticiasNovoRoute,
+  AdminEventosIndexRoute: AdminEventosIndexRoute,
+  AdminNoticiasIndexRoute: AdminNoticiasIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  EntrarRoute: EntrarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

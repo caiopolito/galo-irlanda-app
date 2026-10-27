@@ -1,0 +1,17 @@
+{
+  "name": "@galo/api-client",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "generate": "openapi-typescript ${API_URL:-http://localhost:5137}/openapi/v1.json -o src/schema.d.ts"
+  },
+  "dependencies": {
+    "openapi-fetch": "0.17.0"
+  },
+  "devDependencies": {
+    "openapi-typescript": "7.13.0"
+  }
+}

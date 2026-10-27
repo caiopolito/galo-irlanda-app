@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace GaloIrlanda.Api.Features.Posts;
 
-/// <summary>Lista do admin com rascunhos, agendadas e arquivadas.</summary>
+/// <summary>Lista do admin com rascunhos, agendadas e arquivadas. Filtro opcional <c>status</c>: draft, published, archived.</summary>
 public static class ListPosts
 {
     public sealed record Item(
@@ -15,10 +15,11 @@ public static class ListPosts
         group.MapGet("/", Handle).WithName(nameof(ListPosts)).WithSummary("Lista notícias no admin");
 
     private static async Task<Ok<PagedResponse<Item>>> Handle(
-        [AsParameters] PageRequest page, AppDbContext db, CancellationToken ct, PostStatus? status = null)
+        [AsParameters] PageRequest page, AppDbContext db, CancellationToken ct, string? status = null)
     {
         var query = db.Posts.AsQueryable();
-        if (status is not null) query = query.Where(p => p.Status == status);
+        if (status is not null && Enum.TryParse<PostStatus>(status, ignoreCase: true, out var parsed))
+            query = query.Where(p => p.Status == parsed);
 
         var result = await query
             .OrderByDescending(p => p.UpdatedAt)

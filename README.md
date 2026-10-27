@@ -5,8 +5,9 @@ Site da torcida de atleticanos na Irlanda: página pública, área do sócio e p
 ## Estrutura
 
 ```
-apps/web    TanStack Start (React + Vite) — Cloudflare
-apps/api    .NET 10, Minimal APIs, Vertical Slice — Fly.io
+apps/web             TanStack Start (React + Vite) — site, área do sócio e admin (/admin) — Cloudflare
+apps/api             .NET 10, Minimal APIs, Vertical Slice — Fly.io
+packages/api-client  client TypeScript gerado do OpenAPI da API
 docs/       design (DESIGN.md), decisões (adr/) e layouts de referência
 ```
 
@@ -44,6 +45,16 @@ npm run db:seed-layout
 ```
 
 Em desenvolvimento as fotos ficam em `apps/api/src/GaloIrlanda.Api/.data/media` e são servidas em `http://localhost:5137/media/`.
+
+### Admin
+
+Com a API e o front rodando (`npm run db:up`, `npm run dev:api`, `npm run dev:web`), acesse http://localhost:3000/entrar. Em desenvolvimento o front repassa `/api` para a API (proxy do Vite), então tudo roda no mesmo endereço.
+
+Mudou a API? Regenere os tipos do front com a API rodando:
+
+```bash
+npm run api:types
+```
 
 ### Login local
 

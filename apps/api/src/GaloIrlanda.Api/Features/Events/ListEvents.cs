@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace GaloIrlanda.Api.Features.Events;
 
-/// <summary>Lista do admin: próximos (padrão), passados ou todos, com rascunhos.</summary>
+/// <summary>Lista do admin com rascunhos. <c>scope</c>: <c>upcoming</c> (padrão), <c>past</c> ou <c>all</c>.</summary>
 public static class ListEvents
 {
-    public enum Scope { Upcoming, Past, All }
-
     public sealed record Item(
         Guid Id,
         EventKind Kind,
@@ -24,15 +22,16 @@ public static class ListEvents
         group.MapGet("/", Handle).WithName(nameof(ListEvents)).WithSummary("Lista eventos no admin");
 
     private static async Task<Ok<PagedResponse<Item>>> Handle(
-        [AsParameters] PageRequest page, AppDbContext db, TimeProvider clock, CancellationToken ct, Scope scope = Scope.Upcoming)
+        [AsParameters] PageRequest page, AppDbContext db, TimeProvider clock, CancellationToken ct, string scope = "upcoming")
     {
         var now = clock.GetUtcNow();
         var query = db.Events.AsQueryable();
         query = scope switch
         {
-            Scope.Upcoming => query.Where(e => e.StartsAt >= now.AddHours(-3)).OrderBy(e => e.StartsAt),
-            Scope.Past => query.Where(e => e.StartsAt < now.AddHours(-3)).OrderByDescending(e => e.StartsAt),
-            _ => query.OrderByDescending(e => e.StartsAt),
+            // Texto, e não enum: o bind de enum na query diferencia maiúsculas de minúsculas.
+            "past" => query.Where(e => e.StartsAt < now.AddHours(-3)).OrderByDescending(e => e.StartsAt),
+            "all" => query.OrderByDescending(e => e.StartsAt),
+            _ => query.Where(e => e.StartsAt >= now.AddHours(-3)).OrderBy(e => e.StartsAt),
         };
 
         var result = await query

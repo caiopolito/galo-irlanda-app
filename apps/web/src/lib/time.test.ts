@@ -5,6 +5,8 @@ import {
 	formatTime,
 	formatWeekdayLong,
 	formatWeekdayShort,
+	fromZonedInput,
+	toZonedInput,
 } from "./time";
 
 describe("formatDualTime", () => {
@@ -52,5 +54,34 @@ describe("date labels", () => {
 	it("formats day and month in the given zone", () => {
 		expect(formatDayMonth(kickoff, "dublin")).toBe("07/11");
 		expect(formatDayMonth(kickoff, "bh")).toBe("06/11");
+	});
+});
+
+describe("datetime-local in Dublin time", () => {
+	it("converts winter time (UTC+0) both ways", () => {
+		expect(fromZonedInput("2026-11-07T00:30", "dublin")).toBe(
+			"2026-11-07T00:30:00.000Z",
+		);
+		expect(toZonedInput("2026-11-07T00:30:00Z", "dublin")).toBe(
+			"2026-11-07T00:30",
+		);
+	});
+
+	it("converts summer time (UTC+1) both ways", () => {
+		expect(fromZonedInput("2026-07-04T20:00", "dublin")).toBe(
+			"2026-07-04T19:00:00.000Z",
+		);
+		expect(toZonedInput("2026-07-04T19:00:00Z", "dublin")).toBe(
+			"2026-07-04T20:00",
+		);
+	});
+
+	it("handles the day the clocks change", () => {
+		expect(fromZonedInput("2026-03-29T12:00", "dublin")).toBe(
+			"2026-03-29T11:00:00.000Z",
+		);
+		expect(fromZonedInput("2026-10-25T12:00", "dublin")).toBe(
+			"2026-10-25T12:00:00.000Z",
+		);
 	});
 });

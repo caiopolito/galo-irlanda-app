@@ -1,4 +1,6 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { useState } from "react";
 
 import appCss from "../styles.css?url";
 
@@ -21,13 +23,22 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: { queries: { staleTime: 30_000, retry: false } },
+			}),
+	);
+
 	return (
 		<html lang="pt-BR">
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				{children}
+				<QueryClientProvider client={queryClient}>
+					{children}
+				</QueryClientProvider>
 				<Scripts />
 			</body>
 		</html>

@@ -6,7 +6,7 @@ namespace GaloIrlanda.Api.Common.Auth;
 
 public static class AuthSetup
 {
-    public static IServiceCollection AddGaloAuth(this IServiceCollection services)
+    public static IServiceCollection AddGaloAuth(this IServiceCollection services, IHostEnvironment environment)
     {
         services.AddHttpContextAccessor();
         services.AddSingleton<CurrentUser>();
@@ -18,7 +18,10 @@ public static class AuthSetup
             {
                 options.Cookie.Name = "galo_session";
                 options.Cookie.HttpOnly = true;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                // Em desenvolvimento o front roda em http://localhost; em produção, só HTTPS.
+                options.Cookie.SecurePolicy = environment.IsDevelopment()
+                    ? CookieSecurePolicy.SameAsRequest
+                    : CookieSecurePolicy.Always;
                 options.Cookie.SameSite = SameSiteMode.Lax;
                 options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 options.SlidingExpiration = true;
