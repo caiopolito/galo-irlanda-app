@@ -90,20 +90,36 @@ Saudação ("Bom dia, [Nome]." / "ou boa madrugada, né") · carteirinha em form
 ## Premissas (regras do projeto)
 
 - **Nunca usar azul** — remete ao Cruzeiro. Preto, off-white e âmbar.
-- **Não usar o escudo oficial** do Atlético (marca registrada). Usar o monograma "GI".
+- **Escudo oficial**: pode ser usado no layout ([ADR 0012](adr/0012-uso-escudo-oficial.md)), sempre num único componente. O monograma "GI" segue como marca própria da torcida.
 - **Sem clichê irlandês**: nada de trevo/verde em excesso; no máximo um toque sutil.
-- **Horário sempre duplo**: Dublin + Brasília (ex.: 00:30 Dublin = 21:30 BH no horário de inverno irlandês; conferir a diferença em cada mudança de horário de verão).
+- **Horário sempre duplo**: Dublin + Brasília, guardado em UTC e convertido por fuso, nunca por diferença fixa ([ADR 0009](adr/0009-fuso-horario-utc.md)).
 - **Não inventar dados**: usar placeholders `[Adversário]`, `[Pub parceiro]`, `€[valor]`, `[X]%`, `[dd/mm]` até ter informação real. Confirmar fatos históricos (ex.: "1950 – Campeões do Gelo") em fonte oficial antes de publicar.
 - **Aviso legal no rodapé**: "Torcida independente de atleticanos na Irlanda. Sem vínculo oficial com o Clube Atlético Mineiro."
 - **Tom**: mineiro, bem-humorado, de gente — não corporativo.
 - **Site primeiro, como PWA**: a área do sócio mobile funciona como "app instalável"; evitar manter um app nativo separado.
 - **Fotos reais > ilustração**: o layout precisa funcionar com fotos de celular imperfeitas.
 - **Acessibilidade**: alvos de toque ≥ 44 px, contraste alto, funcionar em 360 px de largura.
-- **Editável por voluntários**: conteúdo (jogos, notícias, fotos, benefícios) deve vir de fonte fácil de atualizar.
+- **Editável por voluntários**: conteúdo (jogos, notícias, fotos, benefícios) gerenciado pelo painel admin em `/admin` ([ADR 0004](adr/0004-conteudo-no-backend-admin-react.md)).
 
-## Próximos passos sugeridos
+## Arquitetura
 
-- Portar a landing e a área do sócio para componentes React em `src/` (tokens de cor/tipografia em CSS variables).
-- Definir fonte de conteúdo (CMS headless, planilha ou JSON) para jogos e notícias.
-- Autenticação e pagamento da área do sócio (checkout externo).
+Decisões registradas em [`docs/adr/`](adr/README.md). Resumo:
+
+- Monorepo: `apps/web` (TanStack Start + React + Vite, Cloudflare), `apps/api` (.NET 10, Minimal APIs, Vertical Slice enxuta, Fly.io), `packages/api-client` (gerado do OpenAPI).
+- Postgres no Neon (UE), arquivos no Cloudflare R2, login por link mágico com cookie, Stripe para mensalidade.
+- O código CRA/MUI atual será removido ([ADR 0013](adr/0013-remocao-codigo-legado.md)).
+
+## Fases
+
+| Fase | Entrega |
+|---|---|
+| 0 | API + Postgres, login, papéis, admin de posts/jogos/fotos, site público consumindo a API |
+| 1 | Área do sócio: perfil, carteirinha (QR + PDF), RSVP, documentos |
+| 2 | Mensalidade (Stripe Checkout + Customer Portal) |
+| 3 | Votações, benefícios, fotos privadas, Google/Apple Wallet |
+
+## Pendências
+
+- Domínio (`.com`, `.ie` ou ambos) — necessário antes do login em produção.
+- Definir quem detém a conta Stripe enquanto a associação for informal.
 - Ensaio fotográfico real num jogo para substituir os placeholders.
