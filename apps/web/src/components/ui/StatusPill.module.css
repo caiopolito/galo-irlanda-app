@@ -1,0 +1,40 @@
+.pill {
+	display: inline-block;
+	border: 1.5px solid transparent;
+	border-radius: var(--radius-pill);
+	font-weight: 700;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.md {
+	padding: 9px 16px;
+	font-size: 16px;
+}
+
+.sm {
+	padding: 4px 12px;
+	font-size: 13px;
+}
+
+.boarding {
+	background: var(--color-amber);
+	border-color: var(--color-amber);
+	color: var(--color-ink);
+}
+
+.confirmed {
+	border-color: var(--color-text);
+	color: var(--color-text);
+}
+
+.muted {
+	border-color: var(--color-line-strong);
+	color: var(--color-muted);
+}
+
+.pending {
+	border-color: var(--color-line-strong);
+	border-style: dashed;
+	color: var(--color-muted);
+}

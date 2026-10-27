@@ -1,25 +1,74 @@
-/* Tokens do layout "Painel de Embarque" — ver docs/DESIGN.md */
+/*
+ * Tokens do layout "Painel de Embarque" — fonte: docs/DESIGN.md e docs/layout/Landing-A*.dc.html.
+ * Componentes usam só estas variáveis; nada de hex solto nos módulos.
+ */
 :root {
+	/* Fundo escuro */
 	--color-bg: #121110;
 	--color-bg-deep: #0b0b0a;
 	--color-surface: #1c1b19;
+	--color-surface-sunken: #161514;
 	--color-line: #2a2826;
 	--color-line-strong: #3d3a35;
+
+	/* Texto sobre fundo escuro */
 	--color-text: #f4f1ea;
 	--color-text-soft: #d3cec4;
 	--color-muted: #a8a398;
-	--color-amber: #f5a524;
-	--color-ink-muted: #6b665c;
+	--color-faint: #8c887f;
 
+	/* Destaque único */
+	--color-amber: #f5a524;
+	--color-amber-hover: #ffc35c;
+
+	/* Fundo claro ("papel") */
+	--color-paper: #f4f1ea;
+	--color-paper-line: #c9c3b6;
+	--color-ink: #121110;
+	--color-ink-soft: #3d3a34;
+	--color-ink-muted: #6b665c;
+	--color-ink-faint: #5c574e;
+
+	/* Tipografia */
 	--font-display: "Young Serif", Georgia, serif;
 	--font-body: "Figtree Variable", system-ui, sans-serif;
 	--font-hand: "Reenie Beanie", cursive;
 
-	--radius-pill: 999px;
-	--radius-card: 22px;
-	--radius-flap: 8px;
+	--text-display: clamp(48px, 7.4vw, 108px);
+	--text-h2: clamp(32px, 4vw, 52px);
+	--text-h2-lg: clamp(36px, 4.6vw, 64px);
+	--text-lead: clamp(16px, 1.4vw, 19px);
+	--text-hand: clamp(26px, 3vw, 40px);
+	--tracking-tight: -0.02em;
 
+	/* Raios */
+	--radius-sm: 8px;
+	--radius-md: 16px;
+	--radius-lg: 20px;
+	--radius-xl: 24px;
+	--radius-2xl: 28px;
+	--radius-pill: 999px;
+
+	/* Sombras */
+	--shadow-float: 0 18px 40px rgb(0 0 0 / 0.45);
+	--shadow-card: 0 24px 48px rgb(0 0 0 / 0.5);
+
+	/* Superfícies com textura */
+	--flap-gradient: linear-gradient(#262421 0 49%, #0b0b0a 49% 51%, #1f1d1b 51%);
+	--stripes-dark: repeating-linear-gradient(
+		135deg,
+		#24221f 0 14px,
+		#1e1c1a 14px 28px
+	);
+	--stripes-light: repeating-linear-gradient(
+		135deg,
+		#e4dfd4 0 14px,
+		#dcd6ca 14px 28px
+	);
+
+	/* Layout */
 	--container-max: 1240px;
 	--gutter: clamp(16px, 4vw, 56px);
-	--tap-min: 48px;
+	--section-y: clamp(48px, 8vw, 112px);
+	--tap-min: 44px;
 }

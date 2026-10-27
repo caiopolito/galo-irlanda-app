@@ -1,0 +1,27 @@
+.tile {
+	display: block;
+	min-width: 0;
+	overflow: hidden;
+	background: var(--flap-gradient);
+	color: var(--color-text);
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.md {
+	padding: 10px 12px;
+	border-radius: var(--radius-sm);
+	font-size: 22px;
+}
+
+.sm {
+	padding: 6px 9px;
+	border-radius: 7px;
+	font-size: 18px;
+}
+
+.accent {
+	color: var(--color-amber);
+}

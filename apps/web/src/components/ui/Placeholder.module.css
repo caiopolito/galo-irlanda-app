@@ -1,0 +1,29 @@
+.placeholder {
+	display: flex;
+	align-items: flex-end;
+	padding: 16px;
+}
+
+.dark {
+	background: var(--stripes-dark);
+}
+
+.light {
+	background: var(--stripes-light);
+}
+
+.caption {
+	padding: 5px 9px;
+	border-radius: var(--radius-sm);
+	font-size: 12px;
+}
+
+.dark .caption {
+	background: rgb(18 17 16 / 0.8);
+	color: var(--color-muted);
+}
+
+.light .caption {
+	background: rgb(244 241 234 / 0.85);
+	color: var(--color-ink-faint);
+}

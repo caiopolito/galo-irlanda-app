@@ -9,6 +9,7 @@
     "build:web": "npm run build -w apps/web",
     "check:web": "npm run check -w apps/web && npm run typecheck -w apps/web",
     "dev:api": "dotnet run --project apps/api/src/GaloIrlanda.Api",
-    "test:api": "dotnet test apps/api/GaloIrlanda.slnx"
+    "test:api": "dotnet test apps/api/GaloIrlanda.slnx",
+    "test:web": "npm run test -w apps/web"
   }
 }

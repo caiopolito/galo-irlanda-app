@@ -1,0 +1,27 @@
+.wrapper {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.note {
+	display: inline-block;
+	font-family: var(--font-hand);
+	font-size: var(--text-hand);
+	line-height: 1;
+	transform: rotate(-3deg);
+}
+
+.amber {
+	color: var(--color-amber);
+}
+
+.soft {
+	color: var(--color-text-soft);
+}
+
+.underline {
+	width: clamp(100px, 10vw, 120px);
+	margin-top: 2px;
+	color: var(--color-amber);
+}

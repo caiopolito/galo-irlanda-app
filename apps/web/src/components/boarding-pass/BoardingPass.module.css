@@ -1,0 +1,92 @@
+.pass {
+	display: flex;
+	width: 100%;
+	max-width: 440px;
+	border-radius: 22px;
+	background: var(--color-paper);
+	color: var(--color-ink);
+	box-shadow: var(--shadow-card);
+	transform: rotate(-2.5deg);
+}
+
+.main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 12px;
+	min-width: 0;
+	padding: clamp(16px, 2vw, 22px);
+	border-right: 2px dashed var(--color-paper-line);
+}
+
+.top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.club {
+	font-family: var(--font-display);
+	font-size: clamp(15px, 1.5vw, 18px);
+}
+
+.label {
+	color: var(--color-ink-muted);
+	font-size: 12px;
+	font-weight: 800;
+}
+
+.route {
+	display: flex;
+	align-items: center;
+	gap: clamp(8px, 1vw, 12px);
+	font-family: var(--font-display);
+	font-size: clamp(30px, 3.2vw, 38px);
+	line-height: 1;
+}
+
+.plane {
+	font-family: var(--font-body);
+	font-size: 20px;
+}
+
+.fields {
+	display: flex;
+	gap: 22px;
+	margin: 0;
+	font-size: 13px;
+}
+
+.fields dt {
+	color: var(--color-ink-muted);
+	font-weight: 600;
+}
+
+.fields dd {
+	margin: 0;
+	font-weight: 700;
+}
+
+.stub {
+	display: flex;
+	flex: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	width: clamp(76px, 8vw, 96px);
+	padding: 16px 10px;
+	text-align: center;
+}
+
+.numberLabel {
+	margin-top: 6px;
+	color: var(--color-ink-muted);
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.number {
+	font-family: var(--font-display);
+	font-size: clamp(20px, 2.2vw, 26px);
+}

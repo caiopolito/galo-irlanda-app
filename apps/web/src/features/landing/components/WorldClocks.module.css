@@ -1,0 +1,60 @@
+.clocks {
+	display: flex;
+	flex: 1 1 100%;
+	gap: 8px;
+}
+
+.clock {
+	display: flex;
+	flex: 1;
+	align-items: baseline;
+	justify-content: space-between;
+	margin: 0;
+	padding: 8px 12px;
+	border-radius: 14px;
+	background: var(--color-surface);
+}
+
+.label {
+	color: var(--color-muted);
+	white-space: nowrap;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.prefix {
+	display: none;
+}
+
+.time,
+.timeAccent {
+	font-size: 20px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+
+.timeAccent {
+	color: var(--color-amber);
+}
+
+@media (min-width: 720px) {
+	.clocks {
+		flex: none;
+		gap: 10px;
+	}
+
+	.clock {
+		flex-direction: column;
+		padding: 10px 16px;
+		border-radius: var(--radius-md);
+	}
+
+	.prefix {
+		display: inline;
+	}
+
+	.time,
+	.timeAccent {
+		font-size: 26px;
+	}
+}

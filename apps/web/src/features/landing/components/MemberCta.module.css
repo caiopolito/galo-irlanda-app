@@ -1,0 +1,110 @@
+.section {
+	max-width: var(--container-max);
+	margin: 0 auto;
+	padding: 8px var(--gutter) 48px;
+}
+
+.card {
+	display: grid;
+	grid-template-areas:
+		"note"
+		"title"
+		"pass"
+		"text"
+		"actions";
+	gap: 16px;
+	padding: 24px 18px;
+	border-radius: 26px;
+	background: var(--color-surface);
+}
+
+.note {
+	grid-area: note;
+	justify-self: start;
+}
+
+.title {
+	grid-area: title;
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(34px, 4.4vw, 58px);
+	font-weight: 400;
+	line-height: 1.02;
+	letter-spacing: var(--tracking-tight);
+}
+
+.passWrapper {
+	grid-area: pass;
+	display: flex;
+	justify-content: center;
+	padding: 6px 4px;
+}
+
+.text {
+	grid-area: text;
+	max-width: 480px;
+	margin: 0;
+	color: var(--color-text-soft);
+	font-size: clamp(15px, 1.3vw, 17px);
+	line-height: 1.6;
+}
+
+.actions {
+	grid-area: actions;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+}
+
+.action {
+	flex: 1 1 100%;
+}
+
+.price {
+	flex-basis: 100%;
+	color: var(--color-muted);
+	font-size: 14px;
+	text-align: center;
+}
+
+@media (min-width: 960px) {
+	.section {
+		padding-bottom: clamp(80px, 9vw, 128px);
+	}
+
+	.card {
+		grid-template-areas:
+			"note pass"
+			"title pass"
+			"text pass"
+			"actions pass";
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		grid-template-rows: 1fr auto auto 1fr;
+		gap: 18px clamp(28px, 4vw, 56px);
+		padding: clamp(28px, 4vw, 56px);
+		border-radius: 32px;
+	}
+
+	.note {
+		align-self: end;
+	}
+
+	.passWrapper {
+		align-self: center;
+	}
+
+	.actions {
+		align-self: start;
+	}
+
+	.action {
+		flex: none;
+	}
+
+	.price {
+		flex-basis: auto;
+		font-size: 15px;
+		text-align: left;
+	}
+}

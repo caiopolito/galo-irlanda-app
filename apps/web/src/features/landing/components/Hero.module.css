@@ -1,0 +1,215 @@
+.hero {
+	display: grid;
+	grid-template-areas:
+		"intro"
+		"media"
+		"actions";
+	gap: 18px;
+	max-width: var(--container-max);
+	margin: 0 auto;
+	padding: 20px var(--gutter) 40px;
+}
+
+.intro {
+	grid-area: intro;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	min-width: 0;
+}
+
+.eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--color-muted);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--color-amber);
+}
+
+.title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--text-display);
+	font-weight: 400;
+	line-height: 0.98;
+	letter-spacing: -0.025em;
+}
+
+.lead {
+	max-width: 520px;
+	margin: 0;
+	color: var(--color-text-soft);
+	font-size: var(--text-lead);
+	line-height: 1.6;
+}
+
+.media {
+	grid-area: media;
+	position: relative;
+	min-width: 0;
+	padding: 8px 6px 34px;
+}
+
+.photo {
+	aspect-ratio: 5 / 4;
+	border-radius: var(--radius-xl);
+	transform: rotate(1.5deg);
+}
+
+.nextCard {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	max-width: 320px;
+	padding: 12px 16px;
+	border-radius: var(--radius-md);
+	background: var(--color-paper);
+	color: var(--color-ink);
+	box-shadow: var(--shadow-float);
+	transform: rotate(-3deg);
+}
+
+.nextLabel {
+	color: var(--color-ink-muted);
+	font-size: 11px;
+	font-weight: 700;
+}
+
+.nextTitle {
+	font-family: var(--font-display);
+	font-size: clamp(20px, 2vw, 24px);
+	line-height: 1.1;
+}
+
+.nextTime {
+	color: var(--color-ink-soft);
+	font-size: 13px;
+}
+
+.stamp {
+	position: absolute;
+	top: -6px;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 78px;
+	height: 78px;
+	border-radius: 50%;
+	background: var(--color-amber);
+	color: var(--color-ink);
+	text-align: center;
+	transform: rotate(12deg);
+}
+
+.stampRoute {
+	font-size: 9px;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+}
+
+.stampKm {
+	font-family: var(--font-display);
+	font-size: 18px;
+	line-height: 1;
+}
+
+.stampText {
+	font-size: 9px;
+	font-weight: 700;
+}
+
+.actions {
+	grid-area: actions;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+}
+
+.primary {
+	align-self: stretch;
+}
+
+@media (min-width: 960px) {
+	.hero {
+		grid-template-areas:
+			"intro media"
+			"actions media";
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+		grid-template-rows: auto auto;
+		gap: 24px clamp(32px, 5vw, 72px);
+		padding-block: clamp(32px, 5vw, 72px) clamp(48px, 6vw, 96px);
+	}
+
+	.intro {
+		align-self: end;
+		gap: 24px;
+	}
+
+	.eyebrow {
+		font-size: 14px;
+	}
+
+	.media {
+		align-self: center;
+		padding: 10px 10px 40px;
+	}
+
+	.photo {
+		aspect-ratio: 4 / 5;
+		max-height: 600px;
+		border-radius: var(--radius-2xl);
+	}
+
+	.nextCard {
+		padding: 16px 20px;
+		border-radius: 18px;
+	}
+
+	.nextLabel {
+		font-size: 12px;
+	}
+
+	.nextTime {
+		font-size: 14px;
+	}
+
+	.stamp {
+		top: 0;
+		width: 96px;
+		height: 96px;
+	}
+
+	.stampRoute,
+	.stampText {
+		font-size: 11px;
+	}
+
+	.stampKm {
+		font-size: 22px;
+	}
+
+	.actions {
+		align-self: start;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 14px;
+	}
+
+	.primary {
+		align-self: auto;
+	}
+}

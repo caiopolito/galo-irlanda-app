@@ -1,0 +1,143 @@
+.section {
+	background: var(--color-paper);
+	color: var(--color-ink);
+}
+
+.inner {
+	display: grid;
+	grid-template-areas:
+		"label"
+		"title"
+		"photo"
+		"details"
+		"actions";
+	gap: 18px;
+	max-width: var(--container-max);
+	margin: 0 auto;
+	padding: 40px var(--gutter);
+}
+
+.label {
+	grid-area: label;
+	color: var(--color-ink-muted);
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.title {
+	grid-area: title;
+	display: flex;
+	align-items: center;
+	gap: clamp(12px, 1.5vw, 18px);
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--text-h2-lg);
+	font-weight: 400;
+	line-height: 1;
+	letter-spacing: var(--tracking-tight);
+}
+
+.crest {
+	flex: none;
+	height: 1.1em;
+	width: auto;
+}
+
+.photo {
+	grid-area: photo;
+	aspect-ratio: 16 / 10;
+	border-radius: var(--radius-lg);
+}
+
+.details {
+	grid-area: details;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 14px 16px;
+	margin: 0;
+}
+
+.details dt {
+	color: var(--color-ink-muted);
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.details dd {
+	margin: 3px 0 0;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.actions {
+	grid-area: actions;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.action {
+	flex: 1 1 0;
+}
+
+.count {
+	flex-basis: 100%;
+	color: var(--color-ink-faint);
+	font-size: 14px;
+	text-align: center;
+}
+
+@media (min-width: 960px) {
+	.inner {
+		grid-template-areas:
+			"photo label"
+			"photo title"
+			"photo details"
+			"photo actions";
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+		grid-template-rows: 1fr auto auto 1fr;
+		gap: 22px clamp(28px, 4vw, 64px);
+		padding-block: clamp(56px, 7vw, 104px);
+	}
+
+	.label {
+		align-self: end;
+		font-size: 14px;
+	}
+
+	.photo {
+		align-self: center;
+		aspect-ratio: 3 / 2;
+		border-radius: var(--radius-xl);
+	}
+
+	.details {
+		grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+		gap: 16px 24px;
+	}
+
+	.details dt {
+		font-size: 13px;
+	}
+
+	.details dd {
+		margin-top: 4px;
+		font-size: 18px;
+	}
+
+	.actions {
+		align-self: start;
+		gap: 12px;
+	}
+
+	.action {
+		flex: none;
+	}
+
+	.count {
+		flex-basis: auto;
+		font-size: 15px;
+		text-align: left;
+	}
+}

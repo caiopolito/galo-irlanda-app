@@ -1,28 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteFooter } from "#/components/layout/SiteFooter";
+import { SiteHeader } from "#/components/layout/SiteHeader";
+import { Cities } from "#/features/landing/components/Cities";
+import { DepartureBoard } from "#/features/landing/components/DepartureBoard";
+import { Hero } from "#/features/landing/components/Hero";
+import { MemberCta } from "#/features/landing/components/MemberCta";
+import { News } from "#/features/landing/components/News";
+import { NextMatch } from "#/features/landing/components/NextMatch";
+import { PhotoWall } from "#/features/landing/components/PhotoWall";
+import { Timeline } from "#/features/landing/components/Timeline";
 
-export const Route = createFileRoute("/")({ component: Home });
+const TITLE = "Galo Irlanda · O Galo nunca joga sozinho";
+const DESCRIPTION =
+	"Torcida de atleticanos em Dublin, Cork e Galway. Jogos no pub, pelada, churrasco e uma saudade danada de BH.";
 
-function Home() {
+export const Route = createFileRoute("/")({
+	head: () => ({
+		meta: [
+			{ title: TITLE },
+			{ name: "description", content: DESCRIPTION },
+			{ property: "og:type", content: "website" },
+			{ property: "og:locale", content: "pt_BR" },
+			{ property: "og:title", content: TITLE },
+			{ property: "og:description", content: DESCRIPTION },
+		],
+	}),
+	component: Landing,
+});
+
+function Landing() {
 	return (
-		<main
-			style={{
-				maxWidth: "var(--container-max)",
-				margin: "0 auto",
-				padding: "64px var(--gutter)",
-			}}
-		>
-			<h1 style={{ fontFamily: "var(--font-display)", fontWeight: 400 }}>
-				O Galo nunca joga sozinho.
-			</h1>
-			<p
-				style={{
-					fontFamily: "var(--font-hand)",
-					fontSize: 32,
-					color: "var(--color-amber)",
-				}}
-			>
-				nem às 2 da manhã em Dublin.
-			</p>
-		</main>
+		<>
+			<SiteHeader />
+			<main>
+				<Hero />
+				<DepartureBoard />
+				<NextMatch />
+				<Cities />
+				<News />
+				<PhotoWall />
+				<Timeline />
+				<MemberCta />
+			</main>
+			<SiteFooter />
+		</>
 	);
 }

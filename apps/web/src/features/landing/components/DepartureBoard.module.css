@@ -1,0 +1,116 @@
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	max-width: var(--container-max);
+	margin: 0 auto;
+	padding: 0 var(--gutter) var(--section-y);
+}
+
+.board {
+	padding: 10px;
+	border: 1px solid var(--color-line);
+	border-radius: 22px;
+	background: var(--color-bg-deep);
+}
+
+.table {
+	display: none;
+}
+
+.cards {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 12px;
+	border-radius: var(--radius-md);
+	background: var(--color-surface-sunken);
+}
+
+.cardTiles {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.grow {
+	flex: 1;
+}
+
+.cardMeta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	color: var(--color-text-soft);
+	font-size: 14px;
+}
+
+.note {
+	align-self: flex-end;
+	margin-right: clamp(0px, 2vw, 24px);
+}
+
+@media (min-width: 900px) {
+	.section {
+		gap: 22px;
+	}
+
+	.board {
+		padding: clamp(10px, 1.6vw, 20px);
+		border-radius: 26px;
+	}
+
+	.table {
+		display: table;
+		border-spacing: 10px 8px;
+		margin: -8px -10px;
+		width: calc(100% + 20px);
+		table-layout: fixed;
+	}
+
+	.table th {
+		padding: 6px 8px 0;
+		color: var(--color-faint);
+		font-size: 13px;
+		font-weight: 600;
+		text-align: left;
+	}
+
+	.colTime {
+		width: 110px;
+	}
+
+	.colTitle {
+		width: 36%;
+	}
+
+	.colVenue {
+		width: 26%;
+	}
+
+	.colCity {
+		width: 16%;
+	}
+
+	.colStatus {
+		width: 170px;
+	}
+
+	.fill {
+		display: block;
+	}
+
+	.cards {
+		display: none;
+	}
+}
