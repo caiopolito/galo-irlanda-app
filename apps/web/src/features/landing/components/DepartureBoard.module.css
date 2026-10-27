@@ -114,3 +114,10 @@
 		display: none;
 	}
 }
+
+.empty {
+	margin: 0;
+	padding: 24px 12px;
+	color: var(--color-muted);
+	text-align: center;
+}

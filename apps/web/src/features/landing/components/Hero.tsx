@@ -1,12 +1,18 @@
 import { Button } from "#/components/ui/Button";
 import { HandNote } from "#/components/ui/HandNote";
 import { Photo } from "#/components/ui/Photo";
+import { Placeholder } from "#/components/ui/Placeholder";
 import { formatDualTime, formatWeekdayShort } from "#/lib/time";
-import { hero, nextMatch } from "../data";
+import type { LandingContent } from "../types";
 import styles from "./Hero.module.css";
 
-export function Hero() {
-	const kickoff = new Date(nextMatch.startsAt);
+interface HeroProps {
+	photo: LandingContent["hero"];
+	nextMatch: LandingContent["nextMatch"];
+}
+
+export function Hero({ photo, nextMatch }: HeroProps) {
+	const kickoff = nextMatch && new Date(nextMatch.startsAt);
 
 	return (
 		<section className={styles.hero} aria-labelledby="hero-title">
@@ -27,20 +33,29 @@ export function Hero() {
 			</div>
 
 			<div className={styles.media}>
-				<Photo
-					picture={hero.photo}
-					alt={hero.photoAlt}
-					sizes="(min-width: 960px) 560px, 100vw"
-					priority
-					className={styles.photo}
-				/>
-				<div className={styles.nextCard}>
-					<span className={styles.nextLabel}>PRÓXIMO EMBARQUE</span>
-					<span className={styles.nextTitle}>{nextMatch.title}</span>
-					<span className={styles.nextTime}>
-						{formatWeekdayShort(kickoff, "dublin")} · {formatDualTime(kickoff)}
-					</span>
-				</div>
+				{photo ? (
+					<Photo
+						photo={photo}
+						sizes="(min-width: 960px) 560px, 100vw"
+						priority
+						className={styles.photo}
+					/>
+				) : (
+					<Placeholder
+						caption="[foto real: pub lotado na hora do gol]"
+						className={styles.photo}
+					/>
+				)}
+				{nextMatch && kickoff && (
+					<div className={styles.nextCard}>
+						<span className={styles.nextLabel}>PRÓXIMO EMBARQUE</span>
+						<span className={styles.nextTitle}>{nextMatch.title}</span>
+						<span className={styles.nextTime}>
+							{formatWeekdayShort(kickoff, "dublin")} ·{" "}
+							{formatDualTime(kickoff)}
+						</span>
+					</div>
+				)}
 				<div className={styles.stamp} aria-hidden="true">
 					<span className={styles.stampRoute}>DUB ⇄ CNF</span>
 					<span className={styles.stampKm}>9.000</span>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "#/components/ui/Button";
 import { Crest } from "#/components/ui/Crest";
-import { links } from "#/config/links";
+import { type ExternalLinks, externalLinks, links } from "#/config/links";
 import { cx } from "#/lib/cx";
 import styles from "./SiteHeader.module.css";
 
@@ -13,7 +13,11 @@ const NAV_ITEMS = [
 	{ href: links.memberArea, label: "Área do sócio" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({
+	external = externalLinks(),
+}: {
+	external?: ExternalLinks;
+}) {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
@@ -42,7 +46,7 @@ export function SiteHeader() {
 				</nav>
 
 				<Button
-					href={links.whatsappGroup}
+					href={external.whatsappGroup}
 					variant="light"
 					size="md"
 					arrow

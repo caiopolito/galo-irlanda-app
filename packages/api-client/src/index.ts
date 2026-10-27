@@ -11,12 +11,13 @@ export const CSRF_HEADER = "X-Galo-Csrf";
 
 /**
  * Client tipado da API, gerado a partir do OpenAPI (`npm run api:types`).
- * Envia o cookie de sessão e o header anti-CSRF em toda requisição.
+ * Envia o header anti-CSRF e, no navegador, o cookie de sessão. No servidor (Cloudflare Workers)
+ * `credentials` não é suportado e não há cookie para mandar.
  */
-export function createApiClient(baseUrl = "") {
+export function createApiClient(baseUrl = "", { withCredentials = true } = {}) {
 	return createClient<paths>({
 		baseUrl,
-		credentials: "include",
+		...(withCredentials ? { credentials: "include" as const } : {}),
 		headers: { [CSRF_HEADER]: "1" },
 	});
 }

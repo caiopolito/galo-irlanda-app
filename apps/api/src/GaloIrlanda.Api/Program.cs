@@ -26,6 +26,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 services.AddProblemDetails();
+services.AddExceptionHandler<BadRequestExceptionHandler>();
 services.AddExceptionHandler<DbExceptionHandler>();
 services.AddGaloOpenApi();
 services.ConfigureHttpJsonOptions(options =>

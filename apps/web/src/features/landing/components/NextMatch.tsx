@@ -1,20 +1,27 @@
 import { Button } from "#/components/ui/Button";
 import { Crest } from "#/components/ui/Crest";
 import { Photo } from "#/components/ui/Photo";
+import { Placeholder } from "#/components/ui/Placeholder";
 import { formatDayMonth, formatDualTime, formatWeekdayLong } from "#/lib/time";
-import { nextMatch } from "../data";
+import type { LandingContent } from "../types";
 import styles from "./NextMatch.module.css";
 
-export function NextMatch() {
-	const kickoff = new Date(nextMatch.startsAt);
+export function NextMatch({
+	match,
+}: {
+	match: NonNullable<LandingContent["nextMatch"]>;
+}) {
+	const kickoff = new Date(match.startsAt);
 	const details = [
 		{
 			term: "Quando",
 			value: `${formatWeekdayLong(kickoff, "dublin")}, ${formatDayMonth(kickoff, "dublin")}`,
 		},
 		{ term: "Bola rola", value: formatDualTime(kickoff) },
-		{ term: "Onde", value: nextMatch.venue },
-		{ term: "Volta pra casa", value: nextMatch.homeTrip },
+		{ term: "Onde", value: match.place },
+		...(match.homeTrip
+			? [{ term: "Volta pra casa", value: match.homeTrip }]
+			: []),
 	];
 
 	return (
@@ -23,14 +30,21 @@ export function NextMatch() {
 				<span className={styles.label}>Portão 01 · o próximo jogo</span>
 				<h2 id="proximo-jogo-title" className={styles.title}>
 					<Crest height={56} className={styles.crest} />
-					{nextMatch.title}
+					{match.title}
 				</h2>
-				<Photo
-					picture={nextMatch.photo}
-					alt={nextMatch.photoAlt}
-					sizes="(min-width: 960px) 560px, 100vw"
-					className={styles.photo}
-				/>
+				{match.photo ? (
+					<Photo
+						photo={match.photo}
+						sizes="(min-width: 960px) 560px, 100vw"
+						className={styles.photo}
+					/>
+				) : (
+					<Placeholder
+						tone="light"
+						caption="[foto: fachada do pub parceiro, à noite]"
+						className={styles.photo}
+					/>
+				)}
 				<dl className={styles.details}>
 					{details.map((detail) => (
 						<div key={detail.term}>
@@ -50,9 +64,11 @@ export function NextMatch() {
 					>
 						Pôr na agenda
 					</Button>
-					<span className={styles.count}>
-						{nextMatch.confirmed} atleticanos confirmados
-					</span>
+					{match.confirmed > 0 && (
+						<span className={styles.count}>
+							{match.confirmed} atleticanos confirmados
+						</span>
+					)}
 				</div>
 			</div>
 		</section>

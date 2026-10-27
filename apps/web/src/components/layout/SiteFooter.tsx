@@ -1,15 +1,19 @@
 import { Monogram } from "#/components/ui/Monogram";
-import { links } from "#/config/links";
+import { type ExternalLinks, externalLinks, links } from "#/config/links";
 import styles from "./SiteFooter.module.css";
 
-const FOOTER_LINKS = [
-	{ href: links.instagram, label: "Instagram" },
-	{ href: links.whatsappGroup, label: "WhatsApp" },
-	{ href: links.partnerPubs, label: "Pubs parceiros" },
-	{ href: links.contact, label: "Contato" },
-];
+export function SiteFooter({
+	external = externalLinks(),
+}: {
+	external?: ExternalLinks;
+}) {
+	const footerLinks = [
+		{ href: external.instagram, label: "Instagram" },
+		{ href: external.whatsappGroup, label: "WhatsApp" },
+		{ href: links.partnerPubs, label: "Pubs parceiros" },
+		{ href: external.contact, label: "Contato" },
+	];
 
-export function SiteFooter() {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.inner}>
@@ -18,7 +22,7 @@ export function SiteFooter() {
 					Eu acredito. Em qualquer fuso.
 				</p>
 				<nav aria-label="Rodapé" className={styles.nav}>
-					{FOOTER_LINKS.map((link) => (
+					{footerLinks.map((link) => (
 						<a key={link.label} href={link.href} className={styles.link}>
 							{link.label}
 						</a>

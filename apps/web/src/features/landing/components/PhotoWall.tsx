@@ -1,10 +1,16 @@
 import { HandNote } from "#/components/ui/HandNote";
 import { Photo } from "#/components/ui/Photo";
 import { SectionHeader } from "#/components/ui/SectionHeader";
-import { wallPhotos } from "../data";
+import type { LandingContent } from "../types";
 import styles from "./PhotoWall.module.css";
 
-export function PhotoWall() {
+export function PhotoWall({
+	photos,
+}: {
+	photos: LandingContent["wallPhotos"];
+}) {
+	if (photos.length === 0) return null;
+
 	return (
 		<section
 			id="fotos"
@@ -19,18 +25,19 @@ export function PhotoWall() {
 					aside={<HandNote>foto tremida também vale</HandNote>}
 				/>
 				<ul className={styles.grid}>
-					{wallPhotos.map((photo) => (
-						<li key={photo.title}>
+					{photos.map((item) => (
+						<li key={item.photo.baseUrl}>
 							<figure className={styles.figure}>
 								<Photo
-									picture={photo.picture}
-									alt={photo.alt}
+									photo={item.photo}
 									sizes="(min-width: 960px) 280px, 50vw"
 									className={styles.photo}
 								/>
-								<figcaption className={styles.caption}>
-									<strong>{photo.title}</strong> {photo.caption}
-								</figcaption>
+								{(item.title || item.caption) && (
+									<figcaption className={styles.caption}>
+										{item.title && <strong>{item.title}</strong>} {item.caption}
+									</figcaption>
+								)}
 							</figure>
 						</li>
 					))}

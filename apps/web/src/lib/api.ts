@@ -1,7 +1,15 @@
 import { createApiClient } from "@galo/api-client";
 
-/** Client da API. Em desenvolvimento, "/api" passa pelo proxy do Vite; em produção, `VITE_API_URL`. */
-export const api = createApiClient(import.meta.env.VITE_API_URL ?? "");
+const isServer = typeof window === "undefined";
+
+/**
+ * Endereço da API. Produção: `VITE_API_URL`. Desenvolvimento: no navegador, "/api" passa pelo proxy
+ * do Vite; no servidor (renderização da landing), a API é chamada direto.
+ */
+export const apiBaseUrl =
+	import.meta.env.VITE_API_URL ?? (isServer ? "http://localhost:5137" : "");
+
+export const api = createApiClient(apiBaseUrl, { withCredentials: !isServer });
 
 export interface Problem {
 	title?: string;

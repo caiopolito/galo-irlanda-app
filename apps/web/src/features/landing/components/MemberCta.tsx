@@ -2,9 +2,19 @@ import { BoardingPass } from "#/components/boarding-pass/BoardingPass";
 import { Button } from "#/components/ui/Button";
 import { HandNote } from "#/components/ui/HandNote";
 import { links } from "#/config/links";
+import type { SiteLinks } from "../types";
 import styles from "./MemberCta.module.css";
 
-export function MemberCta() {
+function formatFee({ membershipFeeCents, membershipCurrency }: SiteLinks) {
+	if (membershipFeeCents === null) return "€[valor]";
+	return new Intl.NumberFormat("pt-BR", {
+		style: "currency",
+		currency: membershipCurrency,
+		minimumFractionDigits: membershipFeeCents % 100 === 0 ? 0 : 2,
+	}).format(membershipFeeCents / 100);
+}
+
+export function MemberCta({ settings }: { settings: SiteLinks }) {
 	return (
 		<section
 			id="socio"
@@ -27,7 +37,9 @@ export function MemberCta() {
 					<Button href={links.memberArea} arrow className={styles.action}>
 						Conhecer a área do sócio
 					</Button>
-					<span className={styles.price}>a partir de €[valor]/mês</span>
+					<span className={styles.price}>
+						a partir de {formatFee(settings)}/mês
+					</span>
 				</div>
 			</div>
 		</section>

@@ -91,4 +91,15 @@ public sealed class ContentTests(ApiFactory api) : IAsyncLifetime
         var saved = await editor.GetFromJsonAsync<GetSiteSettings.Response>("/api/admin/settings", Json.Options, Ct);
         Assert.Equal(1500, saved!.MembershipFeeCents);
     }
+
+    [Fact]
+    public async Task Malformed_body_is_a_bad_request_not_a_server_error()
+    {
+        var editor = await api.CreateClientAsAsync(Roles.Editor);
+
+        var response = await editor.PutAsync("/api/admin/settings",
+            new StringContent("{\"heroPhotoId\":\"\",\"version\":1}", System.Text.Encoding.UTF8, "application/json"), Ct);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
 }

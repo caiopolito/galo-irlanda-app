@@ -1,7 +1,13 @@
-import { milestones } from "../data";
+import type { LandingContent } from "../types";
 import styles from "./Timeline.module.css";
 
-export function Timeline() {
+export function Timeline({
+	milestones,
+}: {
+	milestones: LandingContent["milestones"];
+}) {
+	if (milestones.length === 0) return null;
+
 	return (
 		<section className={styles.section} aria-labelledby="escalas-title">
 			<h2 id="escalas-title" className={styles.title}>
@@ -9,7 +15,10 @@ export function Timeline() {
 			</h2>
 			<ol className={styles.list}>
 				{milestones.map((milestone) => (
-					<li key={milestone.year} className={styles.item}>
+					<li
+						key={`${milestone.year}-${milestone.text}`}
+						className={styles.item}
+					>
 						<span className={styles.year}>{milestone.year}</span>
 						<span className={styles.text}>{milestone.text}</span>
 					</li>

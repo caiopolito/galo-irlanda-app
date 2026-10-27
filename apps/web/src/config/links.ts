@@ -1,9 +1,26 @@
-/** Links do site. Os externos ainda não foram definidos e apontam para âncoras provisórias. */
+import type { Schemas } from "@galo/api-client";
+
+/** Links fixos do site. Os externos vêm das Configurações do admin; sem valor, ficam âncoras provisórias. */
 export const links = {
-	whatsappGroup: "#entrar-no-grupo",
-	instagram: "#instagram",
 	memberArea: "/socio",
 	allNews: "#todas-as-noticias",
-	partnerPubs: "#pubs-parceiros",
-	contact: "#contato",
+	partnerPubs: "#cidades",
 };
+
+export interface ExternalLinks {
+	whatsappGroup: string;
+	instagram: string;
+	contact: string;
+}
+
+export function externalLinks(
+	settings?: Schemas["GetLandingSiteLinks"],
+): ExternalLinks {
+	return {
+		whatsappGroup: settings?.whatsappUrl ?? "#entrar-no-grupo",
+		instagram: settings?.instagramUrl ?? "#instagram",
+		contact: settings?.contactEmail
+			? `mailto:${settings.contactEmail}`
+			: "#contato",
+	};
+}
