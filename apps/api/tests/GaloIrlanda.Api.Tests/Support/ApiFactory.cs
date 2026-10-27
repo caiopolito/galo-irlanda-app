@@ -2,6 +2,7 @@ using GaloIrlanda.Api.Common.Http;
 using GaloIrlanda.Api.Data;
 using GaloIrlanda.Api.Domain;
 using GaloIrlanda.Api.Integrations.Cloudflare;
+using GaloIrlanda.Api.Integrations.Email;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -22,6 +23,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 
     public FakeTimeProvider Clock { get; } = new(new DateTimeOffset(2026, 11, 1, 12, 0, 0, TimeSpan.Zero));
     public FakeDeployHook DeployHook { get; } = new();
+    public FakeEmailSender Email { get; } = new();
 
     public async ValueTask InitializeAsync()
     {
@@ -38,7 +40,8 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         {
             DbAdapter = DbAdapter.Postgres,
             SchemasToInclude = ["public"],
-            TablesToIgnore = ["__EFMigrationsHistory"],
+            // As chaves do Data Protection ficam: o app já as carregou em memória.
+            TablesToIgnore = ["__EFMigrationsHistory", "data_protection_keys"],
         });
     }
 
@@ -49,6 +52,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         await connection.OpenAsync();
         await _respawner.ResetAsync(connection);
         DeployHook.Calls = 0;
+        Email.Sent.Clear();
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -56,10 +60,13 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         builder.UseEnvironment("Testing");
         builder.UseSetting("ConnectionStrings:Db", _postgres.GetConnectionString());
         builder.UseSetting("Internal:Secret", "segredo-de-teste");
+        builder.UseSetting("Site:PublicUrl", "https://site.teste");
+        builder.UseSetting("Auth:RateLimitPerMinute", "1000");
         builder.ConfigureTestServices(services =>
         {
             services.AddSingleton<TimeProvider>(Clock);
             services.AddSingleton<IDeployHook>(DeployHook);
+            services.AddSingleton<IEmailSender>(Email);
             services.AddAuthentication(TestAuthHandler.SchemeName)
                 .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.SchemeName, null);
         });
@@ -80,6 +87,18 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         await SeedAsync(user);
 
         client.DefaultRequestHeaders.Add(TestAuthHandler.HeaderName, $"{user.Id}:{role}");
+        return client;
+    }
+
+    /// <summary>Cliente "navegador": HTTPS (o cookie é Secure) e guarda cookies entre requisições.</summary>
+    public HttpClient CreateBrowserClient()
+    {
+        var client = CreateClient(new WebApplicationFactoryClientOptions
+        {
+            BaseAddress = new Uri("https://localhost"),
+            HandleCookies = true,
+        });
+        client.DefaultRequestHeaders.Add(CsrfHeaderFilter.HeaderName, "1");
         return client;
     }
 

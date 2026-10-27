@@ -11,7 +11,7 @@ namespace GaloIrlanda.Api.Features.Publishing;
 /// </summary>
 public static class CronTick
 {
-    public sealed record Response(int DuePosts, int ExpiredTokens, bool Triggered);
+    public sealed record Response(int DuePosts, int ExpiredTokens, int OldSessions, bool Triggered);
 
     public static void Map(RouteGroupBuilder group) =>
         group.MapPost("/cron/tick", Handle).WithName(nameof(CronTick));
@@ -39,7 +39,13 @@ public static class CronTick
             .Where(t => t.ExpiresAt < now.AddHours(-24))
             .ExecuteDeleteAsync(ct);
 
+        // Retenção (docs/database/schema.md): sessões somem 7 dias após expirar ou serem revogadas.
+        var sessionCutoff = now.AddDays(-7);
+        var oldSessions = await db.Sessions
+            .Where(s => s.ExpiresAt < sessionCutoff || s.RevokedAt < sessionCutoff)
+            .ExecuteDeleteAsync(ct);
+
         var triggered = await rebuilder.TryTriggerAsync(force: false, ct);
-        return TypedResults.Ok(new Response(duePosts, expiredTokens, triggered));
+        return TypedResults.Ok(new Response(duePosts, expiredTokens, oldSessions, triggered));
     }
 }

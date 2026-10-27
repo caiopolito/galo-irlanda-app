@@ -4,7 +4,8 @@ using GaloIrlanda.Api.Features.Publishing;
 namespace GaloIrlanda.Api.Common.Http;
 
 /// <summary>Grupos de rota: quem pode chamar um slice é decidido pelo grupo em que o módulo o registra.</summary>
-public sealed record EndpointGroups(RouteGroupBuilder Admin, RouteGroupBuilder Public, RouteGroupBuilder Internal);
+public sealed record EndpointGroups(
+    RouteGroupBuilder Admin, RouteGroupBuilder Public, RouteGroupBuilder Auth, RouteGroupBuilder Internal);
 
 public static class EndpointGroupsExtensions
 {
@@ -18,10 +19,12 @@ public static class EndpointGroupsExtensions
 
         var @public = api.MapGroup("/public").AllowAnonymous();
 
+        var auth = api.MapGroup("/auth").WithTags("Auth");
+
         var @internal = app.MapGroup("/internal")
             .AddEndpointFilter<InternalSecretFilter>()
             .ExcludeFromDescription();
 
-        return new EndpointGroups(admin, @public, @internal);
+        return new EndpointGroups(admin, @public, auth, @internal);
     }
 }

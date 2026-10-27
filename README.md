@@ -35,6 +35,17 @@ npm run test:api
 
 Vertical Slice Architecture: uma pasta por recurso em `apps/api/src/GaloIrlanda.Api/Features/`, um arquivo por caso de uso (ex.: `Features/Events/CreateEvent.cs`). Guia completo: [`docs/api/ARQUITETURA.md`](docs/api/ARQUITETURA.md). Modelo de dados: [`docs/database/schema.md`](docs/database/schema.md).
 
+### Login local
+
+Em desenvolvimento o e-mail não é enviado: o link de acesso aparece no log da API. Para criar o primeiro admin:
+
+```bash
+Admin__BootstrapEmail=voce@exemplo.com npm run dev:api
+# depois: POST /api/auth/magic-link {"email": "voce@exemplo.com"} e use o token do log em /api/auth/magic-link/consume
+```
+
+Configuração em produção (segredos do Fly): `ConnectionStrings__Db`, `ADMIN_BOOTSTRAP_EMAIL`, `Email__ResendApiKey`, `Email__From`, `Site__PublicUrl`, `Site__Origins__0`, `Cloudflare__DeployHookUrl`, `Internal__Secret`.
+
 Nova migration:
 
 ```bash

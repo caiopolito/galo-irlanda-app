@@ -1,4 +1,6 @@
+using GaloIrlanda.Api.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace GaloIrlanda.Api.Common.Auth;
 
@@ -8,8 +10,9 @@ public static class AuthSetup
     {
         services.AddHttpContextAccessor();
         services.AddSingleton<CurrentUser>();
+        services.AddDataProtection().SetApplicationName("galo-irlanda").PersistKeysToDbContext<AppDbContext>();
 
-        // Cookie de sessão (ADR 0006/0014). O ITicketStore sobre a tabela sessions entra com o módulo Auth.
+        // Cookie de sessão (ADR 0006/0014). A sessão fica no banco: ver Features/Auth/SessionTicketStore.
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
