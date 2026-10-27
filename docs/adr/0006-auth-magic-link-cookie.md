@@ -1,6 +1,6 @@
 # 0006. Login por link mágico + cookie de sessão no mesmo site
 
-- Status: Aceito
+- Status: Aceito — o uso do ASP.NET Identity foi substituído por [0014](0014-auth-tabelas-proprias.md)
 - Data: 2026-10-27
 
 ## Contexto
