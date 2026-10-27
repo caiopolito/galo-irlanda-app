@@ -1,17 +1,16 @@
 using System.Net;
 using System.Net.Http.Json;
 using GaloIrlanda.Api.Features.Health;
-using Microsoft.AspNetCore.Mvc.Testing;
+using GaloIrlanda.Api.Tests.Support;
 
 namespace GaloIrlanda.Api.Tests.Features.Health;
 
-public sealed class GetHealthTests(WebApplicationFactory<Program> factory)
-    : IClassFixture<WebApplicationFactory<Program>>
+public sealed class GetHealthTests(ApiFactory api)
 {
     [Fact]
     public async Task Returns_ok()
     {
-        var client = factory.CreateClient();
+        var client = api.CreateClient();
 
         var response = await client.GetAsync("/health", TestContext.Current.CancellationToken);
 
