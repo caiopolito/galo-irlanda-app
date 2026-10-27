@@ -1,0 +1,25 @@
+/* Tokens do layout "Painel de Embarque" — ver docs/DESIGN.md */
+:root {
+	--color-bg: #121110;
+	--color-bg-deep: #0b0b0a;
+	--color-surface: #1c1b19;
+	--color-line: #2a2826;
+	--color-line-strong: #3d3a35;
+	--color-text: #f4f1ea;
+	--color-text-soft: #d3cec4;
+	--color-muted: #a8a398;
+	--color-amber: #f5a524;
+	--color-ink-muted: #6b665c;
+
+	--font-display: "Young Serif", Georgia, serif;
+	--font-body: "Figtree Variable", system-ui, sans-serif;
+	--font-hand: "Reenie Beanie", cursive;
+
+	--radius-pill: 999px;
+	--radius-card: 22px;
+	--radius-flap: 8px;
+
+	--container-max: 1240px;
+	--gutter: clamp(16px, 4vw, 56px);
+	--tap-min: 48px;
+}
