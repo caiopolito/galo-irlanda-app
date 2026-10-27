@@ -21,9 +21,9 @@
 	text-decoration: none;
 }
 
-.crest {
-	height: 36px;
-	width: auto;
+.logo {
+	width: 44px;
+	height: 44px;
 }
 
 .wordmark {
@@ -100,8 +100,9 @@
 		padding-block: 22px;
 	}
 
-	.crest {
-		height: 40px;
+	.logo {
+		width: 52px;
+		height: 52px;
 	}
 
 	.wordmark {

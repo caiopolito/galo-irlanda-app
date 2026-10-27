@@ -53,7 +53,7 @@ Cada jogo é um "voo" de volta pra BH. O site usa a linguagem de aeroporto (pain
 
 ### Tipografia (Google Fonts)
 
-- **Young Serif** — títulos, números grandes, monograma.
+- **Young Serif** — títulos e números grandes.
 - **Figtree** (400–800) — texto e interface; `font-variant-numeric: tabular-nums` em horários.
 - **Reenie Beanie** — anotações à mão, **no máximo 1 por seção** (ex.: "nem às 2 da manhã em Dublin.").
 
@@ -64,7 +64,7 @@ Cada jogo é um "voo" de volta pra BH. O site usa a linguagem de aeroporto (pain
 - **Plaquinha do painel** (split-flap): `background: linear-gradient(#262421 0 49%, #0B0B0A 49% 51%, #1F1D1B 51%); border-radius: 8px;`
 - **Status**: pílulas — âmbar cheio ("Embarcando"), contorno claro ("Confirmado"), contorno apagado ("14 de 20 vagas"), tracejado ("Em votação").
 - **Toques humanos**: fotos/cartões levemente rotacionados (±1,5–3°), selo redondo "DUB ⇄ CNF · 9.000 km de saudade", cartão de embarque com picote tracejado.
-- **Monograma**: "GI" em Young Serif dentro de um círculo com contorno, girado −8°.
+- **Logo**: a logo oficial da torcida (galo com o pint de Guinness sobre o escudo tricolor, faixa "GALO ☘ Irlanda"), recortada em círculo como no Instagram (`components/ui/Logo.tsx`). Também é o favicon e o ícone do app.
 - **Placeholders de foto**: listras diagonais `repeating-linear-gradient(135deg, #24221F 0 14px, #1E1C1A 14px 28px)` com legenda do que deve ir ali.
 
 ### Layout responsivo
@@ -77,7 +77,7 @@ Cada jogo é um "voo" de volta pra BH. O site usa a linguagem de aeroporto (pain
 
 ### Landing pública (A)
 
-1. Header — monograma, nav (Jogos, Da Torcida, Fotos, Pubs, Área do sócio), CTA "Entrar no grupo".
+1. Header — logo da torcida + "Galo ☘ Irlanda", nav (Jogos, Da Torcida, Fotos, Pubs, Área do sócio), CTA "Entrar no grupo".
 2. Hero — "O Galo nunca joga sozinho." + "nem às 2 da manhã em Dublin." + foto + cartão "Próximo embarque".
 3. Painel de partidas — relógios BH/Dublin + tabela de jogos e encontros.
 4. Portão 01 — próximo jogo (data, horário duplo, pub, volta pra casa) + "Tô dentro" / "Pôr na agenda".
@@ -95,7 +95,7 @@ Saudação ("Bom dia, [Nome]." / "ou boa madrugada, né") · carteirinha em form
 ## Premissas (regras do projeto)
 
 - **Nunca usar azul** — remete ao Cruzeiro. Preto, off-white e âmbar.
-- **Escudo oficial**: pode ser usado no layout ([ADR 0012](adr/0012-uso-escudo-oficial.md)), sempre num único componente. O monograma "GI" segue como marca própria da torcida.
+- **Escudo oficial**: pode ser usado no layout ([ADR 0012](adr/0012-uso-escudo-oficial.md)), sempre num único componente. A marca da torcida é a logo oficial do Galo Irlanda (substituiu o monograma "GI"); o escudo do Atlético aparece no próximo jogo e na carteirinha.
 - **Verde-trevo é a cor da Irlanda e de quem é da casa** (trevo de 3 folhas, DUB, confirmado, sócio). O âmbar continua mandando em tudo que é hora e ação. Nada de verde em botão, em horário, em bloco grande saturado ou em tom de fintech. Trevo desenhado à mão (`components/ui/Clover.tsx`), de 3 folhas; o de 4 folhas só como piada pontual.
 - **Horário sempre duplo**: Dublin + Brasília, guardado em UTC e convertido por fuso, nunca por diferença fixa ([ADR 0009](adr/0009-fuso-horario-utc.md)).
 - **Não inventar dados**: usar placeholders `[Adversário]`, `[Pub parceiro]`, `€[valor]`, `[X]%`, `[dd/mm]` até ter informação real. Confirmar fatos históricos (ex.: "1950 – Campeões do Gelo") em fonte oficial antes de publicar.

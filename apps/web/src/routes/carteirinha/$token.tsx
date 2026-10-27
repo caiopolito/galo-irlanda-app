@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Crest } from "#/components/ui/Crest";
+import { Logo } from "#/components/ui/Logo";
 import styles from "#/features/member/signup.module.css";
 import { api, unwrap } from "#/lib/api";
 
@@ -30,7 +30,7 @@ function VerifyCard() {
 
 	return (
 		<main className={styles.result}>
-			<Crest height={56} />
+			<Logo size={72} />
 			<div className={styles.verdict}>
 				{!card.valid ? (
 					<>

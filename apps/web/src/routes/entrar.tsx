@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type FormEvent, useEffect, useRef, useState } from "react";
-import { Monogram } from "#/components/ui/Monogram";
+import { Logo } from "#/components/ui/Logo";
 import { meQueryKey } from "#/features/admin/hooks/useMe";
 import { AdminButton } from "#/features/admin/ui/AdminButton";
 import styles from "#/features/admin/ui/admin.module.css";
@@ -30,7 +30,7 @@ function Login() {
 		>
 			<div className={styles.page}>
 				<div className={styles.actions}>
-					<Monogram size={44} />
+					<Logo size={56} />
 					<h1 className={styles.pageTitle}>Entrar</h1>
 				</div>
 				{token ? <ConsumeToken token={token} /> : <RequestLink />}

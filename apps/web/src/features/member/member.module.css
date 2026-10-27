@@ -328,6 +328,7 @@
 
 .cardTop {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
 	gap: 12px;
@@ -335,6 +336,7 @@
 
 .cardTitle {
 	display: flex;
+	white-space: nowrap;
 	align-items: center;
 	gap: 8px;
 	font-family: var(--font-display);
@@ -778,7 +780,9 @@ fieldset.tripAnswer {
 }
 
 .activeChip {
+	flex: none;
 	padding: 4px 10px;
+	white-space: nowrap;
 	border-radius: var(--radius-pill);
 	background: var(--color-green-deep);
 	color: var(--color-paper);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "#/components/ui/Button";
 import { Clover } from "#/components/ui/Clover";
-import { Crest } from "#/components/ui/Crest";
+import { Logo } from "#/components/ui/Logo";
 import { type ExternalLinks, externalLinks, links } from "#/config/links";
 import { cx } from "#/lib/cx";
 import styles from "./SiteHeader.module.css";
@@ -25,7 +25,7 @@ export function SiteHeader({
 		<header className={styles.header}>
 			<div className={styles.inner}>
 				<a href="/" className={styles.brand}>
-					<Crest height={40} decorative className={styles.crest} />
+					<Logo size={48} decorative className={styles.logo} />
 					<span className={styles.wordmark}>
 						Galo <Clover filled size={15} className={styles.wordmarkClover} />{" "}
 						Irlanda

@@ -17,7 +17,11 @@ export const Route = createRootRoute({
 					"Torcida de atleticanos na Irlanda. O Galo nunca joga sozinho.",
 			},
 		],
-		links: [{ rel: "stylesheet", href: appCss }],
+		links: [
+			{ rel: "stylesheet", href: appCss },
+			{ rel: "icon", type: "image/png", href: "/favicon.png" },
+			{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+		],
 	}),
 	shellComponent: RootDocument,
 });

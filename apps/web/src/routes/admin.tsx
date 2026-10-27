@@ -7,7 +7,7 @@ import {
 	useNavigate,
 } from "@tanstack/react-router";
 import { useState } from "react";
-import { Crest } from "#/components/ui/Crest";
+import { Logo } from "#/components/ui/Logo";
 import { useMe } from "#/features/admin/hooks/useMe";
 import { AdminButton } from "#/features/admin/ui/AdminButton";
 import shell from "#/features/admin/ui/AdminShell.module.css";
@@ -82,7 +82,7 @@ function AdminLayout() {
 		<div className={shell.shell}>
 			<aside className={shell.sidebar}>
 				<Link to="/" className={shell.brand}>
-					<Crest height={28} decorative />
+					<Logo size={32} decorative />
 					Galo Irlanda
 				</Link>
 				<nav className={shell.nav} aria-label="Admin">

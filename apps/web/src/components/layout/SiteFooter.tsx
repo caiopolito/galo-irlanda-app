@@ -1,5 +1,5 @@
 import { Clover } from "#/components/ui/Clover";
-import { Monogram } from "#/components/ui/Monogram";
+import { Logo } from "#/components/ui/Logo";
 import { type ExternalLinks, externalLinks, links } from "#/config/links";
 import styles from "./SiteFooter.module.css";
 
@@ -19,7 +19,7 @@ export function SiteFooter({
 		<footer className={styles.footer}>
 			<div className={styles.inner}>
 				<p className={styles.tagline}>
-					<Monogram size={40} />
+					<Logo size={56} />
 					Eu acredito. Em qualquer fuso.
 					<Clover size={26} className={styles.clover} />
 				</p>

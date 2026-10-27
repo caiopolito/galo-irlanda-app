@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Monogram } from "#/components/ui/Monogram";
+import { Logo } from "#/components/ui/Logo";
 import { api, apiBaseUrl, unwrap } from "#/lib/api";
 import styles from "../member.module.css";
 import { memberKeys } from "../useMember";
@@ -29,7 +29,7 @@ export function BoardingCard() {
 				<div className={styles.cardMain}>
 					<div className={styles.cardTop}>
 						<span className={styles.cardTitle}>
-							<Monogram size={30} />
+							<Logo size={34} decorative />
 							Cartão de embarque
 						</span>
 						{isActive ? (

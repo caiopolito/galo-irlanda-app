@@ -9,7 +9,7 @@ O layout original usava apenas o monograma "GI" para evitar uso de marca registr
 
 ## Decisão
 - O escudo oficial do Clube Atlético Mineiro pode ser usado no layout.
-- O monograma "GI" continua como marca própria da torcida.
+- A marca própria da torcida é a logo oficial do Galo Irlanda (o monograma "GI" foi aposentado na rodada 6 do layout). Ela fica no topo do site; o escudo do Atlético aparece no próximo jogo e na carteirinha.
 - O aviso legal no rodapé permanece: "Torcida independente de atleticanos na Irlanda. Sem vínculo oficial com o Clube Atlético Mineiro."
 
 ## Consequências

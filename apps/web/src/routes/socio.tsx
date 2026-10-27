@@ -4,7 +4,7 @@ import {
 	Navigate,
 	Outlet,
 } from "@tanstack/react-router";
-import { Monogram } from "#/components/ui/Monogram";
+import { Logo } from "#/components/ui/Logo";
 import { useMe } from "#/features/admin/hooks/useMe";
 import { Notice } from "#/features/admin/ui/Notice";
 import styles from "#/features/member/member.module.css";
@@ -80,7 +80,7 @@ function MemberShell() {
 			<header className={styles.header}>
 				<div className={styles.headerInner}>
 					<a href="/" className={styles.brand}>
-						<Monogram size={40} />
+						<Logo size={44} />
 						<span className={styles.back}>← site</span>
 					</a>
 					<nav aria-label="Área do sócio" className={styles.topNav}>
