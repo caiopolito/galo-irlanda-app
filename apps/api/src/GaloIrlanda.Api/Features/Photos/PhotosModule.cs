@@ -15,5 +15,6 @@ public static class PhotosModule
         GetPhoto.Map(admin);
         ListPhotos.Map(admin);
         DeletePhoto.Map(admin);
+        TagPhotoMembers.Map(admin);
     }
 }
