@@ -12,14 +12,24 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as SocioRouteImport } from './routes/socio'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminBeneficiosRouteImport } from './routes/admin/beneficios'
 import { Route as AdminCidadesRouteImport } from './routes/admin/cidades'
 import { Route as AdminConfiguracoesRouteImport } from './routes/admin/configuracoes'
+import { Route as AdminDocumentosRouteImport } from './routes/admin/documentos'
 import { Route as AdminFotosRouteImport } from './routes/admin/fotos'
 import { Route as AdminHistoricoRouteImport } from './routes/admin/historico'
 import { Route as AdminLocaisRouteImport } from './routes/admin/locais'
 import { Route as AdminMarcosRouteImport } from './routes/admin/marcos'
+import { Route as AdminSociosRouteImport } from './routes/admin/socios'
 import { Route as AdminUsuariosRouteImport } from './routes/admin/usuarios'
+import { Route as AdminVotacoesRouteImport } from './routes/admin/votacoes'
+import { Route as CarteirinhaTokenRouteImport } from './routes/carteirinha/$token'
+import { Route as SejaSocioIndexRouteImport } from './routes/seja-socio/index'
+import { Route as SejaSocioObrigadoRouteImport } from './routes/seja-socio/obrigado'
+import { Route as SocioIndexRouteImport } from './routes/socio/index'
+import { Route as SocioPerfilRouteImport } from './routes/socio/perfil'
 import { Route as AdminEventosIndexRouteImport } from './routes/admin/eventos/index'
 import { Route as AdminEventosIdRouteImport } from './routes/admin/eventos/$id'
 import { Route as AdminEventosNovoRouteImport } from './routes/admin/eventos/novo'
@@ -42,9 +52,19 @@ const EntrarRoute = EntrarRouteImport.update({
   path: '/entrar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SocioRoute = SocioRouteImport.update({
+  id: '/socio',
+  path: '/socio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBeneficiosRoute = AdminBeneficiosRouteImport.update({
+  id: '/beneficios',
+  path: '/beneficios',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminCidadesRoute = AdminCidadesRouteImport.update({
@@ -55,6 +75,11 @@ const AdminCidadesRoute = AdminCidadesRouteImport.update({
 const AdminConfiguracoesRoute = AdminConfiguracoesRouteImport.update({
   id: '/configuracoes',
   path: '/configuracoes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDocumentosRoute = AdminDocumentosRouteImport.update({
+  id: '/documentos',
+  path: '/documentos',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminFotosRoute = AdminFotosRouteImport.update({
@@ -77,10 +102,45 @@ const AdminMarcosRoute = AdminMarcosRouteImport.update({
   path: '/marcos',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSociosRoute = AdminSociosRouteImport.update({
+  id: '/socios',
+  path: '/socios',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
   id: '/usuarios',
   path: '/usuarios',
   getParentRoute: () => AdminRoute,
+} as any)
+const AdminVotacoesRoute = AdminVotacoesRouteImport.update({
+  id: '/votacoes',
+  path: '/votacoes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const CarteirinhaTokenRoute = CarteirinhaTokenRouteImport.update({
+  id: '/carteirinha/$token',
+  path: '/carteirinha/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SejaSocioIndexRoute = SejaSocioIndexRouteImport.update({
+  id: '/seja-socio/',
+  path: '/seja-socio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SejaSocioObrigadoRoute = SejaSocioObrigadoRouteImport.update({
+  id: '/seja-socio/obrigado',
+  path: '/seja-socio/obrigado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SocioIndexRoute = SocioIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SocioRoute,
+} as any)
+const SocioPerfilRoute = SocioPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => SocioRoute,
 } as any)
 const AdminEventosIndexRoute = AdminEventosIndexRouteImport.update({
   id: '/eventos/',
@@ -117,14 +177,24 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/entrar': typeof EntrarRoute
+  '/socio': typeof SocioRouteWithChildren
+  '/admin/beneficios': typeof AdminBeneficiosRoute
   '/admin/cidades': typeof AdminCidadesRoute
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/documentos': typeof AdminDocumentosRoute
   '/admin/fotos': typeof AdminFotosRoute
   '/admin/historico': typeof AdminHistoricoRoute
   '/admin/locais': typeof AdminLocaisRoute
   '/admin/marcos': typeof AdminMarcosRoute
+  '/admin/socios': typeof AdminSociosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/votacoes': typeof AdminVotacoesRoute
+  '/carteirinha/$token': typeof CarteirinhaTokenRoute
+  '/seja-socio/obrigado': typeof SejaSocioObrigadoRoute
+  '/socio/perfil': typeof SocioPerfilRoute
   '/admin/': typeof AdminIndexRoute
+  '/seja-socio/': typeof SejaSocioIndexRoute
+  '/socio/': typeof SocioIndexRoute
   '/admin/eventos/$id': typeof AdminEventosIdRoute
   '/admin/eventos/novo': typeof AdminEventosNovoRoute
   '/admin/noticias/$id': typeof AdminNoticiasIdRoute
@@ -135,14 +205,23 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/entrar': typeof EntrarRoute
+  '/admin/beneficios': typeof AdminBeneficiosRoute
   '/admin/cidades': typeof AdminCidadesRoute
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/documentos': typeof AdminDocumentosRoute
   '/admin/fotos': typeof AdminFotosRoute
   '/admin/historico': typeof AdminHistoricoRoute
   '/admin/locais': typeof AdminLocaisRoute
   '/admin/marcos': typeof AdminMarcosRoute
+  '/admin/socios': typeof AdminSociosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/votacoes': typeof AdminVotacoesRoute
+  '/carteirinha/$token': typeof CarteirinhaTokenRoute
+  '/seja-socio/obrigado': typeof SejaSocioObrigadoRoute
+  '/socio/perfil': typeof SocioPerfilRoute
   '/admin': typeof AdminIndexRoute
+  '/seja-socio': typeof SejaSocioIndexRoute
+  '/socio': typeof SocioIndexRoute
   '/admin/eventos/$id': typeof AdminEventosIdRoute
   '/admin/eventos/novo': typeof AdminEventosNovoRoute
   '/admin/noticias/$id': typeof AdminNoticiasIdRoute
@@ -155,14 +234,24 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/entrar': typeof EntrarRoute
+  '/socio': typeof SocioRouteWithChildren
+  '/admin/beneficios': typeof AdminBeneficiosRoute
   '/admin/cidades': typeof AdminCidadesRoute
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/documentos': typeof AdminDocumentosRoute
   '/admin/fotos': typeof AdminFotosRoute
   '/admin/historico': typeof AdminHistoricoRoute
   '/admin/locais': typeof AdminLocaisRoute
   '/admin/marcos': typeof AdminMarcosRoute
+  '/admin/socios': typeof AdminSociosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/votacoes': typeof AdminVotacoesRoute
+  '/carteirinha/$token': typeof CarteirinhaTokenRoute
+  '/seja-socio/obrigado': typeof SejaSocioObrigadoRoute
+  '/socio/perfil': typeof SocioPerfilRoute
   '/admin/': typeof AdminIndexRoute
+  '/seja-socio/': typeof SejaSocioIndexRoute
+  '/socio/': typeof SocioIndexRoute
   '/admin/eventos/$id': typeof AdminEventosIdRoute
   '/admin/eventos/novo': typeof AdminEventosNovoRoute
   '/admin/noticias/$id': typeof AdminNoticiasIdRoute
@@ -176,14 +265,24 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/entrar'
+    | '/socio'
+    | '/admin/beneficios'
     | '/admin/cidades'
     | '/admin/configuracoes'
+    | '/admin/documentos'
     | '/admin/fotos'
     | '/admin/historico'
     | '/admin/locais'
     | '/admin/marcos'
+    | '/admin/socios'
     | '/admin/usuarios'
+    | '/admin/votacoes'
+    | '/carteirinha/$token'
+    | '/seja-socio/obrigado'
+    | '/socio/perfil'
     | '/admin/'
+    | '/seja-socio/'
+    | '/socio/'
     | '/admin/eventos/$id'
     | '/admin/eventos/novo'
     | '/admin/noticias/$id'
@@ -194,14 +293,23 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/entrar'
+    | '/admin/beneficios'
     | '/admin/cidades'
     | '/admin/configuracoes'
+    | '/admin/documentos'
     | '/admin/fotos'
     | '/admin/historico'
     | '/admin/locais'
     | '/admin/marcos'
+    | '/admin/socios'
     | '/admin/usuarios'
+    | '/admin/votacoes'
+    | '/carteirinha/$token'
+    | '/seja-socio/obrigado'
+    | '/socio/perfil'
     | '/admin'
+    | '/seja-socio'
+    | '/socio'
     | '/admin/eventos/$id'
     | '/admin/eventos/novo'
     | '/admin/noticias/$id'
@@ -213,14 +321,24 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/entrar'
+    | '/socio'
+    | '/admin/beneficios'
     | '/admin/cidades'
     | '/admin/configuracoes'
+    | '/admin/documentos'
     | '/admin/fotos'
     | '/admin/historico'
     | '/admin/locais'
     | '/admin/marcos'
+    | '/admin/socios'
     | '/admin/usuarios'
+    | '/admin/votacoes'
+    | '/carteirinha/$token'
+    | '/seja-socio/obrigado'
+    | '/socio/perfil'
     | '/admin/'
+    | '/seja-socio/'
+    | '/socio/'
     | '/admin/eventos/$id'
     | '/admin/eventos/novo'
     | '/admin/noticias/$id'
@@ -233,6 +351,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   EntrarRoute: typeof EntrarRoute
+  SocioRoute: typeof SocioRouteWithChildren
+  CarteirinhaTokenRoute: typeof CarteirinhaTokenRoute
+  SejaSocioObrigadoRoute: typeof SejaSocioObrigadoRoute
+  SejaSocioIndexRoute: typeof SejaSocioIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -258,11 +380,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EntrarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/socio': {
+      id: '/socio'
+      path: '/socio'
+      fullPath: '/socio'
+      preLoaderRoute: typeof SocioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/beneficios': {
+      id: '/admin/beneficios'
+      path: '/beneficios'
+      fullPath: '/admin/beneficios'
+      preLoaderRoute: typeof AdminBeneficiosRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/cidades': {
@@ -277,6 +413,13 @@ declare module '@tanstack/react-router' {
       path: '/configuracoes'
       fullPath: '/admin/configuracoes'
       preLoaderRoute: typeof AdminConfiguracoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/documentos': {
+      id: '/admin/documentos'
+      path: '/documentos'
+      fullPath: '/admin/documentos'
+      preLoaderRoute: typeof AdminDocumentosRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/fotos': {
@@ -307,12 +450,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMarcosRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/socios': {
+      id: '/admin/socios'
+      path: '/socios'
+      fullPath: '/admin/socios'
+      preLoaderRoute: typeof AdminSociosRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/usuarios': {
       id: '/admin/usuarios'
       path: '/usuarios'
       fullPath: '/admin/usuarios'
       preLoaderRoute: typeof AdminUsuariosRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/admin/votacoes': {
+      id: '/admin/votacoes'
+      path: '/votacoes'
+      fullPath: '/admin/votacoes'
+      preLoaderRoute: typeof AdminVotacoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/carteirinha/$token': {
+      id: '/carteirinha/$token'
+      path: '/carteirinha/$token'
+      fullPath: '/carteirinha/$token'
+      preLoaderRoute: typeof CarteirinhaTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seja-socio/': {
+      id: '/seja-socio/'
+      path: '/seja-socio'
+      fullPath: '/seja-socio/'
+      preLoaderRoute: typeof SejaSocioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seja-socio/obrigado': {
+      id: '/seja-socio/obrigado'
+      path: '/seja-socio/obrigado'
+      fullPath: '/seja-socio/obrigado'
+      preLoaderRoute: typeof SejaSocioObrigadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/socio/': {
+      id: '/socio/'
+      path: '/'
+      fullPath: '/socio/'
+      preLoaderRoute: typeof SocioIndexRouteImport
+      parentRoute: typeof SocioRoute
+    }
+    '/socio/perfil': {
+      id: '/socio/perfil'
+      path: '/perfil'
+      fullPath: '/socio/perfil'
+      preLoaderRoute: typeof SocioPerfilRouteImport
+      parentRoute: typeof SocioRoute
     }
     '/admin/eventos/': {
       id: '/admin/eventos/'
@@ -360,13 +552,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminBeneficiosRoute: typeof AdminBeneficiosRoute
   AdminCidadesRoute: typeof AdminCidadesRoute
   AdminConfiguracoesRoute: typeof AdminConfiguracoesRoute
+  AdminDocumentosRoute: typeof AdminDocumentosRoute
   AdminFotosRoute: typeof AdminFotosRoute
   AdminHistoricoRoute: typeof AdminHistoricoRoute
   AdminLocaisRoute: typeof AdminLocaisRoute
   AdminMarcosRoute: typeof AdminMarcosRoute
+  AdminSociosRoute: typeof AdminSociosRoute
   AdminUsuariosRoute: typeof AdminUsuariosRoute
+  AdminVotacoesRoute: typeof AdminVotacoesRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminEventosIdRoute: typeof AdminEventosIdRoute
   AdminEventosNovoRoute: typeof AdminEventosNovoRoute
@@ -377,13 +573,17 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminBeneficiosRoute: AdminBeneficiosRoute,
   AdminCidadesRoute: AdminCidadesRoute,
   AdminConfiguracoesRoute: AdminConfiguracoesRoute,
+  AdminDocumentosRoute: AdminDocumentosRoute,
   AdminFotosRoute: AdminFotosRoute,
   AdminHistoricoRoute: AdminHistoricoRoute,
   AdminLocaisRoute: AdminLocaisRoute,
   AdminMarcosRoute: AdminMarcosRoute,
+  AdminSociosRoute: AdminSociosRoute,
   AdminUsuariosRoute: AdminUsuariosRoute,
+  AdminVotacoesRoute: AdminVotacoesRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminEventosIdRoute: AdminEventosIdRoute,
   AdminEventosNovoRoute: AdminEventosNovoRoute,
@@ -395,10 +595,26 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface SocioRouteChildren {
+  SocioPerfilRoute: typeof SocioPerfilRoute
+  SocioIndexRoute: typeof SocioIndexRoute
+}
+
+const SocioRouteChildren: SocioRouteChildren = {
+  SocioPerfilRoute: SocioPerfilRoute,
+  SocioIndexRoute: SocioIndexRoute,
+}
+
+const SocioRouteWithChildren = SocioRoute._addFileChildren(SocioRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   EntrarRoute: EntrarRoute,
+  SocioRoute: SocioRouteWithChildren,
+  CarteirinhaTokenRoute: CarteirinhaTokenRoute,
+  SejaSocioObrigadoRoute: SejaSocioObrigadoRoute,
+  SejaSocioIndexRoute: SejaSocioIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

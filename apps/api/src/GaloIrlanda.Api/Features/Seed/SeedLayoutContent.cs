@@ -43,8 +43,9 @@ public static class SeedLayoutContent
         var processor = scope.ServiceProvider.GetRequiredService<PhotoProcessor>();
         var now = scope.ServiceProvider.GetRequiredService<TimeProvider>().GetUtcNow();
 
+        var memberArea = await SeedMemberAreaAsync(db, now, ct);
         if (await db.Photos.AnyAsync(ct) || await db.Events.AnyAsync(ct))
-            return "Já existe conteúdo (fotos ou eventos); nada foi cadastrado.";
+            return $"Já existe conteúdo (fotos ou eventos); nada foi cadastrado.{memberArea}";
 
         await EnsureBaseDataAsync(db, now, ct);
 
@@ -112,7 +113,41 @@ public static class SeedLayoutContent
         await db.Milestones.ForEachAsync(m => m.IsPublished = true, ct);
 
         await db.SaveChangesAsync(ct);
-        return $"Cadastrados: {photos.Count} fotos, 3 locais, 4 eventos, 3 notícias; foto da home e marcos publicados.";
+        return $"Cadastrados: {photos.Count} fotos, 3 locais, 4 eventos, 3 notícias; foto da home e marcos publicados.{memberArea}";
+    }
+
+    /// <summary>Benefícios e a votação de exemplo da área do sócio (layout A1), se ainda não houver.</summary>
+    private static async Task<string> SeedMemberAreaAsync(AppDbContext db, DateTimeOffset now, CancellationToken ct)
+    {
+        var added = new List<string>();
+        if (!await db.Benefits.AnyAsync(ct))
+        {
+            db.Benefits.AddRange(
+                new Benefit { Headline = "[X]%", Title = "no [Pub parceiro]", Description = "Em dia de jogo, mostrando a carteirinha.", Highlight = true, SortOrder = 1 },
+                new Benefit { Headline = "Mesa", Title = "guardada em jogo grande", Description = "Até 15 min antes da bola rolar.", SortOrder = 2 },
+                new Benefit { Headline = "1 voto", Title = "nas decisões da torcida", Description = "Camisa, eventos, pubs parceiros.", SortOrder = 3 },
+                new Benefit { Headline = "Kit", Title = "camisa da Massa Dublin", Description = "Preço de sócio na pré-venda.", SortOrder = 4 });
+            added.Add("4 benefícios");
+        }
+        if (!await db.Polls.AnyAsync(ct))
+        {
+            var poll = new Poll
+            {
+                Title = "Onde vai ser o churrasco de fim de ano?",
+                HandNote = "se chover, é no pub mesmo",
+                IsSecret = true,
+                OpensAt = now,
+                ClosesAt = now.AddDays(14),
+                IsPublished = true,
+            };
+            string[] options = ["Quintal do [sócio]", "Parque com churrasqueira", "Pub com área externa"];
+            for (short i = 0; i < options.Length; i++)
+                poll.Options.Add(new PollOption { PollId = poll.Id, Label = options[i], SortOrder = i });
+            db.Polls.Add(poll);
+            added.Add("1 votação");
+        }
+        await db.SaveChangesAsync(ct);
+        return added.Count == 0 ? "" : $" Área do sócio: {string.Join(", ", added)}.";
     }
 
     private static Event NewEvent(

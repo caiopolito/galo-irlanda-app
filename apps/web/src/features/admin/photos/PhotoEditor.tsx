@@ -11,6 +11,7 @@ import {
 } from "#/features/admin/ui/labels";
 import { Notice } from "#/features/admin/ui/Notice";
 import { ApiError, api, photoUrl, unwrap } from "#/lib/api";
+import { PhotoTags } from "./PhotoTags";
 
 type Photo = Schemas["GetPhotoResponse"];
 
@@ -269,6 +270,8 @@ function PhotoEditorForm({
 					)}
 				</Field>
 			)}
+
+			<PhotoTags photoId={photo.id} />
 
 			<div className={styles.actions}>
 				<AdminButton type="submit" variant="primary" busy={save.isPending}>

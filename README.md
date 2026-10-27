@@ -65,7 +65,17 @@ Admin__BootstrapEmail=voce@exemplo.com npm run dev:api
 # depois: POST /api/auth/magic-link {"email": "voce@exemplo.com"} e use o token do log em /api/auth/magic-link/consume
 ```
 
-Configuração em produção (segredos do Fly): `ConnectionStrings__Db`, `ADMIN_BOOTSTRAP_EMAIL`, `Email__ResendApiKey`, `Email__From`, `Site__PublicUrl`, `Site__Origins__0`, `Cloudflare__DeployHookUrl`, `Internal__Secret`.
+### Área do sócio e Stripe
+
+"Pagou, virou sócio": `/seja-socio` manda para o Stripe Checkout e o webhook `POST /stripe/webhook` cria o sócio quando o pagamento é confirmado. Para testar com o Stripe em modo de teste:
+
+1. Crie um produto com preço mensal recorrente no painel do Stripe (modo teste) e copie o `price_...`.
+2. Configure `Stripe__SecretKey` (`sk_test_...`), `Stripe__PriceId` e `Stripe__WebhookSecret`.
+3. Localmente, encaminhe os eventos com a Stripe CLI: `stripe listen --forward-to localhost:5137/stripe/webhook` (ela mostra o `whsec_...`).
+
+Sem o Stripe configurado, o checkout responde 503. Para testar a área do sócio assim mesmo, dá para tornar um usuário local sócio direto no banco (papel `socio` + linhas em `members` e `subscriptions`).
+
+Configuração em produção (segredos do Fly): `ConnectionStrings__Db`, `ADMIN_BOOTSTRAP_EMAIL`, `Email__ResendApiKey`, `Email__From`, `Site__PublicUrl`, `Site__Origins__0`, `Cloudflare__DeployHookUrl`, `Internal__Secret`, `Stripe__SecretKey`, `Stripe__WebhookSecret`, `Stripe__PriceId`, `Storage__*` (R2).
 
 Nova migration:
 

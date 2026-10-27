@@ -3,6 +3,7 @@ import type { Schemas } from "@galo/api-client";
 /** Links fixos do site. Os externos vêm das Configurações do admin; sem valor, ficam âncoras provisórias. */
 export const links = {
 	memberArea: "/socio",
+	becomeMember: "/seja-socio",
 	allNews: "#todas-as-noticias",
 	partnerPubs: "#cidades",
 };

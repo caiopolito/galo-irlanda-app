@@ -2,6 +2,8 @@ import { Button } from "#/components/ui/Button";
 import { Crest } from "#/components/ui/Crest";
 import { Photo } from "#/components/ui/Photo";
 import { Placeholder } from "#/components/ui/Placeholder";
+import { links } from "#/config/links";
+import { apiBaseUrl } from "#/lib/api";
 import { formatDayMonth, formatDualTime, formatWeekdayLong } from "#/lib/time";
 import type { LandingContent } from "../types";
 import styles from "./NextMatch.module.css";
@@ -54,11 +56,15 @@ export function NextMatch({
 					))}
 				</dl>
 				<div className={styles.actions}>
-					<Button href="#to-dentro" variant="dark" className={styles.action}>
+					<Button
+						href={links.memberArea}
+						variant="dark"
+						className={styles.action}
+					>
 						Tô dentro
 					</Button>
 					<Button
-						href="#por-na-agenda"
+						href={`${apiBaseUrl}/api/public/events.ics?slug=${match.slug}`}
 						variant="outlineDark"
 						className={styles.action}
 					>

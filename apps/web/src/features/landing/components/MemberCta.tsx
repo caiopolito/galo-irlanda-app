@@ -2,16 +2,14 @@ import { BoardingPass } from "#/components/boarding-pass/BoardingPass";
 import { Button } from "#/components/ui/Button";
 import { HandNote } from "#/components/ui/HandNote";
 import { links } from "#/config/links";
+import { formatMoney } from "#/lib/money";
 import type { SiteLinks } from "../types";
 import styles from "./MemberCta.module.css";
 
 function formatFee({ membershipFeeCents, membershipCurrency }: SiteLinks) {
-	if (membershipFeeCents === null) return "€[valor]";
-	return new Intl.NumberFormat("pt-BR", {
-		style: "currency",
-		currency: membershipCurrency,
-		minimumFractionDigits: membershipFeeCents % 100 === 0 ? 0 : 2,
-	}).format(membershipFeeCents / 100);
+	return membershipFeeCents === null
+		? "€[valor]"
+		: formatMoney(membershipFeeCents, membershipCurrency);
 }
 
 export function MemberCta({ settings }: { settings: SiteLinks }) {
@@ -34,8 +32,8 @@ export function MemberCta({ settings }: { settings: SiteLinks }) {
 					decisões da torcida e a carteirinha mais bonita da Irlanda.
 				</p>
 				<div className={styles.actions}>
-					<Button href={links.memberArea} arrow className={styles.action}>
-						Conhecer a área do sócio
+					<Button href={links.becomeMember} arrow className={styles.action}>
+						Quero ser sócio
 					</Button>
 					<span className={styles.price}>
 						a partir de {formatFee(settings)}/mês

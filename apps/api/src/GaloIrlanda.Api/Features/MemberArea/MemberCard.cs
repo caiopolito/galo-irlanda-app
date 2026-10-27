@@ -57,7 +57,7 @@ public sealed class MemberCard(IDataProtectionProvider dataProtection, IConfigur
                 canvas.DrawRoundRect(new SKRect(0, 0, width, height), 18, 18, paper);
 
             Text(canvas, "Galo Irlanda · Cartão de embarque", 24, 40, serif, 14, ink);
-            Text(canvas, "DUB → CNF", 24, 100, serif, 40, ink);
+            DrawRoute(canvas, serif, ink);
             Label(canvas, "Passageiro", member.FullName, 24, 150, sans, muted, ink);
             Label(canvas, "Sócio nº", member.MemberNumber.ToString("0000"), 24, 200, sans, muted, ink);
             Label(canvas, "Válido até", validUntil?.ToString("dd/MM/yyyy") ?? "—", 130, 200, sans, muted, ink);
@@ -79,6 +79,29 @@ public sealed class MemberCard(IDataProtectionProvider dataProtection, IConfigur
             document.Close();
         }
         return stream.ToArray();
+    }
+
+    /// <summary>"DUB ⇢ CNF": a Young Serif não tem seta, então a seta é desenhada (tracejada, como no layout).</summary>
+    private static void DrawRoute(SKCanvas canvas, SKTypeface serif, SKColor ink)
+    {
+        const float size = 34;
+        using var font = new SKFont(serif, size);
+        var dubWidth = font.MeasureText("DUB");
+        Text(canvas, "DUB", 24, 100, serif, size, ink);
+
+        var start = 24 + dubWidth + 10;
+        var end = start + 36;
+        using var stroke = new SKPaint
+        {
+            Color = ink, StrokeWidth = 2, IsAntialias = true, Style = SKPaintStyle.Stroke, StrokeCap = SKStrokeCap.Round,
+            PathEffect = SKPathEffect.CreateDash([3, 5], 0),
+        };
+        canvas.DrawLine(start, 88, end, 88, stroke);
+        using var head = new SKPaint { Color = ink, StrokeWidth = 2, IsAntialias = true, StrokeCap = SKStrokeCap.Round };
+        canvas.DrawLine(end - 7, 82, end, 88, head);
+        canvas.DrawLine(end - 7, 94, end, 88, head);
+
+        Text(canvas, "CNF", end + 10, 100, serif, size, ink);
     }
 
     private static void Text(SKCanvas canvas, string text, float x, float y, SKTypeface typeface, float size, SKColor color)

@@ -114,9 +114,9 @@ Decisões registradas em [`docs/adr/`](adr/README.md). Resumo:
 | Fase | Entrega |
 |---|---|
 | 0 | API + Postgres, login, papéis, admin de posts/jogos/fotos, site público consumindo a API |
-| 1 | Área do sócio: perfil, carteirinha (QR + PDF), RSVP, documentos |
-| 2 | Mensalidade (Stripe Checkout + Customer Portal) |
-| 3 | Votações, benefícios, fotos privadas, Google/Apple Wallet |
+| 1 | Área do sócio: perfil, carteirinha (QR + PDF), RSVP, documentos — **feito** |
+| 2 | Mensalidade (Stripe Checkout + Customer Portal) — **feito** (adesão: pagou, virou sócio) |
+| 3 | Votações (secretas ou abertas), benefícios, fotos com marcação — **feito**; Google/Apple Wallet pendente |
 
 ## Pendências
 

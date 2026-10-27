@@ -95,9 +95,12 @@ function ConsumeToken({ token }: { token: string }) {
 	const consume = useMutation({
 		mutationFn: () =>
 			unwrap(api.POST("/api/auth/magic-link/consume", { body: { token } })),
-		onSuccess: async () => {
+		onSuccess: async (user) => {
 			await queryClient.invalidateQueries({ queryKey: meQueryKey });
-			await navigate({ to: "/admin", replace: true });
+			// Quem cuida do site vai para o admin; sócio vai para a área do sócio.
+			const staff =
+				user.roles.includes("admin") || user.roles.includes("editor");
+			await navigate({ to: staff ? "/admin" : "/socio", replace: true });
 		},
 	});
 

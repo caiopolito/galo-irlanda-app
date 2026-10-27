@@ -67,7 +67,7 @@ export function Hero({ photo, nextMatch }: HeroProps) {
 				<Button href="#partidas" arrow className={styles.primary}>
 					Ver o próximo jogo
 				</Button>
-				<Button href="#socio" variant="link">
+				<Button href="/seja-socio" variant="link">
 					Quero ser sócio
 				</Button>
 			</div>

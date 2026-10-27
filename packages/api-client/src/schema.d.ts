@@ -233,6 +233,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/photos/{id}/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Sócios marcados na foto */
+        get: operations["ListPhotoTags"];
+        /** Define os sócios marcados na foto */
+        put: operations["TagPhotoMembers"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin/cities": {
         parameters: {
             query?: never;
@@ -476,6 +494,165 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/polls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lista as votações */
+        get: operations["ListPolls"];
+        put?: never;
+        /** Cria uma votação */
+        post: operations["CreatePoll"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/polls/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Edita uma votação */
+        put: operations["UpdatePoll"];
+        post?: never;
+        /** Exclui uma votação (e os votos) */
+        delete: operations["DeletePoll"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/benefits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lista os benefícios */
+        get: operations["ListBenefits"];
+        put?: never;
+        /** Cria um benefício */
+        post: operations["CreateBenefit"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/benefits/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Edita um benefício */
+        put: operations["UpdateBenefit"];
+        post?: never;
+        /** Exclui um benefício */
+        delete: operations["DeleteBenefit"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lista os documentos */
+        get: operations["ListDocuments"];
+        put?: never;
+        /** Envia um documento (até 20 MB) */
+        post: operations["UploadDocument"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/documents/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Edita um documento */
+        put: operations["UpdateDocument"];
+        post?: never;
+        /** Exclui um documento */
+        delete: operations["DeleteDocument"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/documents/{id}/download": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Baixa um documento */
+        get: operations["DownloadDocument"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lista os sócios */
+        get: operations["ListMembers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/members/{userId}/reissue-card": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Invalida a carteirinha atual e emite outra */
+        post: operations["ReissueMemberCard"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/public/events": {
         parameters: {
             query?: never;
@@ -485,6 +662,57 @@ export interface paths {
         };
         /** Próximos jogos e encontros */
         get: operations["ListUpcomingEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/public/events.ics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Agenda em .ics */
+        get: operations["GetCalendar"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/public/landing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Conteúdo da página inicial */
+        get: operations["GetLanding"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/public/card/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Confere uma carteirinha */
+        get: operations["VerifyMemberCard"];
         put?: never;
         post?: never;
         delete?: never;
@@ -527,17 +755,17 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/public/landing": {
+    "/api/public/membership/checkout": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Conteúdo da página inicial */
-        get: operations["GetLanding"];
+        get?: never;
         put?: never;
-        post?: never;
+        /** Começa a adesão: devolve o link de pagamento da mensalidade */
+        post: operations["StartCheckout"];
         delete?: never;
         options?: never;
         head?: never;
@@ -629,6 +857,245 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/socio/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Painel do sócio */
+        get: operations["GetMemberDashboard"];
+        /** Edita o perfil do sócio */
+        put: operations["UpdateMemberProfile"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/card": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Carteirinha com QR code */
+        get: operations["GetMemberCard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/card.pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Carteirinha em PDF */
+        get: operations["DownloadMemberCard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Meus embarques */
+        get: operations["ListMemberEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/events/{id}/rsvp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Responde se vai ao evento */
+        put: operations["SetRsvp"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/billing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Mensalidade e recibos */
+        get: operations["GetBilling"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/billing/portal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Abre o portal do Stripe (cartão, recibos, cancelamento) */
+        post: operations["OpenBillingPortal"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/polls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Votações da torcida */
+        get: operations["ListMemberPolls"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/polls/{id}/vote": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Vota numa votação */
+        post: operations["VotePoll"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/benefits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Benefícios do sócio */
+        get: operations["ListMemberBenefits"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/photos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Fotos em que o sócio aparece */
+        get: operations["ListMyPhotos"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/photos/{photoId}/tag": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Sai de uma foto */
+        delete: operations["RemoveMyPhotoTag"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Documentos da torcida */
+        get: operations["ListMemberDocuments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/socio/documents/{id}/download": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Baixa um documento */
+        get: operations["DownloadMemberDocument"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -705,6 +1172,24 @@ export interface components {
             /** Format: uint32 */
             version: number;
         };
+        CreatePollRequest: {
+            title: string;
+            description: null | string;
+            handNote: null | string;
+            isSecret: boolean;
+            /** Format: date-time */
+            opensAt: string;
+            /** Format: date-time */
+            closesAt: string;
+            options: string[];
+            publish: boolean;
+        };
+        CreatePollResponse: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uint32 */
+            version: number;
+        };
         CreatePostRequest: {
             title: string;
             excerpt: null | string;
@@ -742,6 +1227,25 @@ export interface components {
         EventKind: "match" | "meetup";
         /** @enum {unknown} */
         EventStatus: "scheduled" | "voting" | "confirmed" | "postponed" | "cancelled";
+        GetBillingInvoice: {
+            /** Format: date-time */
+            date: string;
+            /** Format: int64 */
+            amountCents: number;
+            currency: string;
+            receiptUrl: null | string;
+        };
+        GetBillingPortalResponse: {
+            url: string;
+        };
+        GetBillingResponse: {
+            /** Format: int32 */
+            feeCents: null | number;
+            currency: string;
+            membership: components["schemas"]["MembershipState"];
+            cardLast4: null | string;
+            invoices: components["schemas"]["GetBillingInvoice"][];
+        };
         GetEventResponse: {
             /** Format: uuid */
             id: string;
@@ -852,6 +1356,36 @@ export interface components {
             title: null | string;
             caption: null | string;
         };
+        GetMemberCardResponse: {
+            fullName: string;
+            /** Format: int32 */
+            memberNumber: number;
+            /** Format: date-time */
+            validUntil: null | string;
+            isActive: boolean;
+            verificationUrl: string;
+            qrSvg: string;
+        };
+        GetMemberDashboardResponse: {
+            fullName: string;
+            displayName: string;
+            email: string;
+            /** Format: int32 */
+            memberNumber: number;
+            /** Format: date-time */
+            joinedAt: string;
+            cityCode: string;
+            phone: null | string;
+            photoTagOptIn: boolean;
+            membership: components["schemas"]["MembershipState"];
+            /** Format: int32 */
+            attended: number;
+            referralCode: string;
+            /** Format: int32 */
+            referrals: number;
+            /** Format: uint32 */
+            version: number;
+        };
         GetMeResponse: {
             /** Format: uuid */
             id: string;
@@ -958,6 +1492,21 @@ export interface components {
             /** Format: uuid */
             id: string;
         };
+        ListBenefitsItem: {
+            /** Format: uuid */
+            id: string;
+            headline: string;
+            title: string;
+            description: null | string;
+            /** Format: uuid */
+            venueId: null | string;
+            highlight: boolean;
+            /** Format: int16 */
+            sortOrder: number;
+            isActive: boolean;
+            /** Format: uint32 */
+            version: number;
+        };
         ListChangesItem: {
             /** Format: int64 */
             id: number;
@@ -993,6 +1542,72 @@ export interface components {
             status: components["schemas"]["EventStatus"];
             isPublished: boolean;
         };
+        ListMemberBenefitsItem: {
+            /** Format: uuid */
+            id: string;
+            headline: string;
+            title: string;
+            description: null | string;
+            highlight: boolean;
+        };
+        ListMemberEventsItem: {
+            /** Format: uuid */
+            id: string;
+            slug: string;
+            kind: components["schemas"]["EventKind"];
+            title: string;
+            /** Format: date-time */
+            startsAt: string;
+            place: string;
+            cityName: string;
+            status: components["schemas"]["EventStatus"];
+            myAnswer: null | components["schemas"]["RsvpAnswer"];
+            /** Format: int32 */
+            going: number;
+        };
+        ListMemberEventsResponse: {
+            next: null | components["schemas"]["ListMemberEventsItem"];
+            events: components["schemas"]["ListMemberEventsItem"][];
+        };
+        ListMemberPollsItem: {
+            /** Format: uuid */
+            id: string;
+            title: string;
+            description: null | string;
+            handNote: null | string;
+            isSecret: boolean;
+            /** Format: date-time */
+            closesAt: string;
+            isOpen: boolean;
+            hasVoted: boolean;
+            /** Format: uuid */
+            myOptionId: null | string;
+            /** Format: int32 */
+            totalVotes: null | number;
+            options: components["schemas"]["ListMemberPollsOption"][];
+        };
+        ListMemberPollsOption: {
+            /** Format: uuid */
+            id: string;
+            label: string;
+            /** Format: int32 */
+            votes: null | number;
+        };
+        ListMembersItem: {
+            /** Format: uuid */
+            userId: string;
+            /** Format: int32 */
+            memberNumber: number;
+            fullName: string;
+            email: string;
+            cityCode: string;
+            /** Format: date-time */
+            joinedAt: string;
+            status: string;
+            /** Format: date-time */
+            paidUntil: null | string;
+            photoTagOptIn: boolean;
+        };
         ListMilestonesItem: {
             /** Format: uuid */
             id: string;
@@ -1019,6 +1634,31 @@ export interface components {
             visibility: components["schemas"]["PhotoVisibility"];
             consentBasis: components["schemas"]["ConsentBasis"];
             wallFeatured: boolean;
+        };
+        ListPollsItem: {
+            /** Format: uuid */
+            id: string;
+            title: string;
+            description: null | string;
+            handNote: null | string;
+            isSecret: boolean;
+            /** Format: date-time */
+            opensAt: string;
+            /** Format: date-time */
+            closesAt: string;
+            isPublished: boolean;
+            /** Format: int32 */
+            participants: number;
+            options: components["schemas"]["ListPollsOption"][];
+            /** Format: uint32 */
+            version: number;
+        };
+        ListPollsOption: {
+            /** Format: uuid */
+            id: string;
+            label: string;
+            /** Format: int32 */
+            votes: number;
         };
         ListPostCategoriesItem: {
             /** Format: int16 */
@@ -1097,6 +1737,60 @@ export interface components {
             /** Format: uint32 */
             version: number;
         };
+        ManageDocumentsItem: {
+            /** Format: uuid */
+            id: string;
+            title: string;
+            fileName: string;
+            /** Format: int64 */
+            sizeBytes: number;
+            /** Format: int16 */
+            sortOrder: number;
+            isPublished: boolean;
+            /** Format: date-time */
+            updatedAt: string;
+            /** Format: uint32 */
+            version: number;
+        };
+        ManageDocumentsUpdateRequest: {
+            title: string;
+            /** Format: int16 */
+            sortOrder: number;
+            isPublished: boolean;
+            /** Format: uint32 */
+            version: number;
+        };
+        MemberDocumentsItem: {
+            /** Format: uuid */
+            id: string;
+            title: string;
+            fileName: string;
+            /** Format: int64 */
+            sizeBytes: number;
+        };
+        MembershipState: {
+            status: string;
+            isActive: boolean;
+            /** Format: date-time */
+            currentPeriodEnd: null | string;
+            cancelAtPeriodEnd: boolean;
+        };
+        MyPhotosItem: {
+            /** Format: uuid */
+            id: string;
+            baseUrl: string;
+            /** Format: int32 */
+            width: number;
+            /** Format: int32 */
+            height: number;
+            altText: null | string;
+            title: null | string;
+        };
+        MyPhotosResponse: {
+            /** Format: int32 */
+            total: number;
+            photos: components["schemas"]["MyPhotosItem"][];
+        };
         PagedResponseOfListChangesItem: {
             items: components["schemas"]["ListChangesItem"][];
             /** Format: int32 */
@@ -1108,6 +1802,15 @@ export interface components {
         };
         PagedResponseOfListEventsItem: {
             items: components["schemas"]["ListEventsItem"][];
+            /** Format: int32 */
+            page: number;
+            /** Format: int32 */
+            pageSize: number;
+            /** Format: int32 */
+            total: number;
+        };
+        PagedResponseOfListMembersItem: {
+            items: components["schemas"]["ListMembersItem"][];
             /** Format: int32 */
             page: number;
             /** Format: int32 */
@@ -1167,6 +1870,50 @@ export interface components {
         RequestMagicLinkResponse: {
             message: string;
         };
+        /** @enum {unknown} */
+        RsvpAnswer: "going" | "maybe" | "not_going" | null;
+        SaveBenefitRequest: {
+            headline: string;
+            title: string;
+            description: null | string;
+            /** Format: uuid */
+            venueId: null | string;
+            highlight: boolean;
+            /** Format: int16 */
+            sortOrder: number;
+            isActive: boolean;
+            /** Format: uint32 */
+            version: null | number;
+        };
+        SaveBenefitResponse: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uint32 */
+            version: number;
+        };
+        SetRsvpRequest: {
+            answer: components["schemas"]["RsvpAnswer"];
+        };
+        StartCheckoutRequest: {
+            fullName: string;
+            email: string;
+            cityCode: string;
+            phone: null | string;
+            referralCode: null | string;
+        };
+        StartCheckoutResponse: {
+            checkoutUrl: string;
+        };
+        TagPhotoMembersRequest: {
+            userIds: string[];
+        };
+        TagPhotoMembersTagged: {
+            /** Format: uuid */
+            userId: string;
+            /** Format: int32 */
+            memberNumber: number;
+            fullName: string;
+        };
         UpdateCityRequest: {
             name: string;
             blurb: null | string;
@@ -1213,6 +1960,18 @@ export interface components {
             /** Format: uint32 */
             version: number;
         };
+        UpdateMemberProfileRequest: {
+            fullName: string;
+            phone: null | string;
+            cityCode: string;
+            photoTagOptIn: boolean;
+            /** Format: uint32 */
+            version: number;
+        };
+        UpdateMemberProfileResponse: {
+            /** Format: uint32 */
+            version: number;
+        };
         UpdateMilestoneRequest: {
             /** Format: int16 */
             year: number;
@@ -1249,6 +2008,26 @@ export interface components {
             version: number;
         };
         UpdatePhotoResponse: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uint32 */
+            version: number;
+        };
+        UpdatePollRequest: {
+            title: string;
+            description: null | string;
+            handNote: null | string;
+            isSecret: boolean;
+            /** Format: date-time */
+            opensAt: string;
+            /** Format: date-time */
+            closesAt: string;
+            options: string[];
+            isPublished: boolean;
+            /** Format: uint32 */
+            version: number;
+        };
+        UpdatePollResponse: {
             /** Format: uuid */
             id: string;
             /** Format: uint32 */
@@ -1305,6 +2084,12 @@ export interface components {
             /** Format: uint32 */
             version: number;
         };
+        UploadDocumentResponse: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uint32 */
+            version: number;
+        };
         UploadPhotoResponse: {
             /** Format: uuid */
             id: string;
@@ -1318,6 +2103,19 @@ export interface components {
         };
         /** @enum {unknown} */
         UserStatus: "active" | "disabled" | "erased";
+        VerifyMemberCardResponse: {
+            valid: boolean;
+            fullName: null | string;
+            /** Format: int32 */
+            memberNumber: null | number;
+            isActive: boolean;
+            /** Format: date-time */
+            validUntil: null | string;
+        };
+        VotePollRequest: {
+            /** Format: uuid */
+            optionId: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -2000,6 +2798,70 @@ export interface operations {
             };
         };
     };
+    ListPhotoTags: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TagPhotoMembersTagged"][];
+                };
+            };
+        };
+    };
+    TagPhotoMembers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TagPhotoMembersRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TagPhotoMembersTagged"][];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     ListCities: {
         parameters: {
             query?: never;
@@ -2631,6 +3493,473 @@ export interface operations {
             };
         };
     };
+    ListPolls: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListPollsItem"][];
+                };
+            };
+        };
+    };
+    CreatePoll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreatePollRequest"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CreatePollResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+        };
+    };
+    UpdatePoll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdatePollRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdatePollResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
+    DeletePoll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ListBenefits: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListBenefitsItem"][];
+                };
+            };
+        };
+    };
+    CreateBenefit: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SaveBenefitRequest"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SaveBenefitResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+        };
+    };
+    UpdateBenefit: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SaveBenefitRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SaveBenefitResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
+    DeleteBenefit: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ListDocuments: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManageDocumentsItem"][];
+                };
+            };
+        };
+    };
+    UploadDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    file: components["schemas"]["IFormFile"];
+                } & {
+                    title: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UploadDocumentResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+        };
+    };
+    UpdateDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManageDocumentsUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
+    DeleteDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DownloadDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ListMembers: {
+        parameters: {
+            query?: {
+                Page?: number;
+                PageSize?: number;
+                search?: string;
+                photoTagOptIn?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PagedResponseOfListMembersItem"];
+                };
+            };
+        };
+    };
+    ReissueMemberCard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     ListUpcomingEvents: {
         parameters: {
             query?: never;
@@ -2647,6 +3976,68 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ListUpcomingEventsItem"][];
+                };
+            };
+        };
+    };
+    GetCalendar: {
+        parameters: {
+            query?: {
+                slug?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetLanding: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetLandingResponse"];
+                };
+            };
+        };
+    };
+    VerifyMemberCard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VerifyMemberCardResponse"];
                 };
             };
         };
@@ -2703,14 +4094,18 @@ export interface operations {
             };
         };
     };
-    GetLanding: {
+    StartCheckout: {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StartCheckoutRequest"];
+            };
+        };
         responses: {
             /** @description OK */
             200: {
@@ -2718,7 +4113,34 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["GetLandingResponse"];
+                    "application/json": components["schemas"]["StartCheckoutResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
                 };
             };
         };
@@ -2838,6 +4260,412 @@ export interface operations {
         responses: {
             /** @description No Content */
             204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetMemberDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetMemberDashboardResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateMemberProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateMemberProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdateMemberProfileResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
+    GetMemberCard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetMemberCardResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DownloadMemberCard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ListMemberEvents: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListMemberEventsResponse"];
+                };
+            };
+        };
+    };
+    SetRsvp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SetRsvpRequest"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetBilling: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetBillingResponse"];
+                };
+            };
+        };
+    };
+    OpenBillingPortal: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetBillingPortalResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ListMemberPolls: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListMemberPollsItem"][];
+                };
+            };
+        };
+    };
+    VotePoll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VotePollRequest"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
+    ListMemberBenefits: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListMemberBenefitsItem"][];
+                };
+            };
+        };
+    };
+    ListMyPhotos: {
+        parameters: {
+            query?: {
+                take?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyPhotosResponse"];
+                };
+            };
+        };
+    };
+    RemoveMyPhotoTag: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                photoId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ListMemberDocuments: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MemberDocumentsItem"][];
+                };
+            };
+        };
+    };
+    DownloadMemberDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Not Found */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };

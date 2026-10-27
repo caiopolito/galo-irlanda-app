@@ -33,6 +33,10 @@ const NAV = [
 	{ to: "/admin/cidades", label: "Cidades" },
 	{ to: "/admin/locais", label: "Locais" },
 	{ to: "/admin/marcos", label: "Marcos" },
+	{ to: "/admin/socios", label: "Sócios" },
+	{ to: "/admin/votacoes", label: "Votações" },
+	{ to: "/admin/beneficios", label: "Benefícios" },
+	{ to: "/admin/documentos", label: "Documentos" },
 	{ to: "/admin/configuracoes", label: "Configurações" },
 ] as const;
 
