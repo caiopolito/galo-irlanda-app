@@ -16,3 +16,4 @@ TestResults/
 # Sistema / editores
 .DS_Store
 .idea/
+.data/

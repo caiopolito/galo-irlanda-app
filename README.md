@@ -35,6 +35,16 @@ npm run test:api
 
 Vertical Slice Architecture: uma pasta por recurso em `apps/api/src/GaloIrlanda.Api/Features/`, um arquivo por caso de uso (ex.: `Features/Events/CreateEvent.cs`). Guia completo: [`docs/api/ARQUITETURA.md`](docs/api/ARQUITETURA.md). Modelo de dados: [`docs/database/schema.md`](docs/database/schema.md).
 
+### Conteúdo inicial
+
+Cadastra no banco o que está no layout da landing (as 6 fotos reais, foto da home, eventos, notícias, locais e marcos). Roda uma vez; não faz nada se já houver fotos ou eventos:
+
+```bash
+npm run db:seed-layout
+```
+
+Em desenvolvimento as fotos ficam em `apps/api/src/GaloIrlanda.Api/.data/media` e são servidas em `http://localhost:5137/media/`.
+
 ### Login local
 
 Em desenvolvimento o e-mail não é enviado: o link de acesso aparece no log da API. Para criar o primeiro admin:

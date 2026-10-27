@@ -78,9 +78,8 @@ CREATE TABLE data_protection_keys (
 );
 
 -- ===== Mídia =====
--- Upload: API cria a linha 'pending' e devolve URL pré-assinada do bucket privado;
--- no confirm, o servidor remove EXIF/GPS, gera WebP 480/1024/2048 em photos/{id}/{w}.webp
--- no bucket público, apaga o original e marca 'ready'.
+-- Upload pela API (ADR 0016): remove EXIF/GPS, gera WebP 480/1024/2048 em photos/{id}/{w}.webp
+-- e cria a linha já 'ready' e privada. 'pending' fica para uploads interrompidos.
 CREATE TABLE photos (
   id                    uuid PRIMARY KEY,
   upload_status         text NOT NULL DEFAULT 'pending' CHECK (upload_status IN ('pending','ready')),

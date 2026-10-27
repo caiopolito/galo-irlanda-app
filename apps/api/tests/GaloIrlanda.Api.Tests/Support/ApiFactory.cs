@@ -3,6 +3,7 @@ using GaloIrlanda.Api.Data;
 using GaloIrlanda.Api.Domain;
 using GaloIrlanda.Api.Integrations.Cloudflare;
 using GaloIrlanda.Api.Integrations.Email;
+using GaloIrlanda.Api.Integrations.Storage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -24,6 +25,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     public FakeTimeProvider Clock { get; } = new(new DateTimeOffset(2026, 11, 1, 12, 0, 0, TimeSpan.Zero));
     public FakeDeployHook DeployHook { get; } = new();
     public FakeEmailSender Email { get; } = new();
+    public InMemoryObjectStorage Storage { get; } = new();
 
     public async ValueTask InitializeAsync()
     {
@@ -53,6 +55,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         await _respawner.ResetAsync(connection);
         DeployHook.Calls = 0;
         Email.Sent.Clear();
+        Storage.Objects.Clear();
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -67,6 +70,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
             services.AddSingleton<TimeProvider>(Clock);
             services.AddSingleton<IDeployHook>(DeployHook);
             services.AddSingleton<IEmailSender>(Email);
+            services.AddSingleton<IObjectStorage>(Storage);
             services.AddAuthentication(TestAuthHandler.SchemeName)
                 .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.SchemeName, null);
         });
@@ -100,6 +104,14 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         });
         client.DefaultRequestHeaders.Add(CsrfHeaderFilter.HeaderName, "1");
         return client;
+    }
+
+    /// <summary>Como <see cref="CreateClientAsAsync"/>, mas devolve também o id do usuário criado.</summary>
+    public async Task<(HttpClient Client, Guid UserId)> CreateClientWithUserAsync(string role)
+    {
+        var client = await CreateClientAsAsync(role);
+        var header = client.DefaultRequestHeaders.GetValues(TestAuthHandler.HeaderName).Single();
+        return (client, Guid.Parse(header.Split(':')[0]));
     }
 
     public AppDbContext CreateDbContext() =>

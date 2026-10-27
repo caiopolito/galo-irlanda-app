@@ -1,6 +1,6 @@
 # 0010. Fotos no R2, com consentimento e sem biometria
 
-- Status: Aceito
+- Status: Aceito — o fluxo de upload foi substituído por [0016](0016-upload-de-fotos-pela-api.md)
 - Data: 2026-10-27
 
 ## Decisão

@@ -21,6 +21,7 @@ public static class UpdateEvent
         string? Competition,
         string? HomeTrip,
         string? DescriptionMd,
+        Guid? CoverPhotoId,
         EventStatus Status,
         int? Capacity,
         int SpotsTaken,
@@ -71,6 +72,10 @@ public static class UpdateEvent
             !await db.Venues.AnyAsync(v => v.Id == venueId && v.CityCode == cityCode && v.IsActive, ct))
             return Invalid("venueId", "Local não encontrado nesta cidade.");
 
+        if (request.CoverPhotoId is { } photoId &&
+            !await db.Photos.AnyAsync(p => p.Id == photoId && p.DeletedAt == null, ct))
+            return Invalid("coverPhotoId", "Foto não encontrada.");
+
         // Concorrência otimista: se outra pessoa salvou antes, o SaveChanges lança e vira 409.
         db.Entry(ev).Property(e => e.Version).OriginalValue = request.Version;
 
@@ -84,6 +89,7 @@ public static class UpdateEvent
         ev.Competition = request.Competition;
         ev.HomeTrip = request.HomeTrip;
         ev.DescriptionMd = request.DescriptionMd;
+        ev.CoverPhotoId = request.CoverPhotoId;
         ev.Status = request.Status;
         ev.Capacity = request.Capacity;
         ev.SpotsTaken = request.SpotsTaken;

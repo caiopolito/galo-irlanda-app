@@ -81,6 +81,6 @@ Toda mutação em `/api` exige o header `X-Galo-Csrf: 1` (força o preflight do 
 
 ## Pacotes
 
-Usamos: Npgsql EF Core, EFCore.NamingConventions, FluentValidation, AWSSDK.S3 (R2), SixLabors.ImageSharp, OpenAPI nativo. Testes: xUnit v3, Mvc.Testing, Testcontainers.PostgreSql, Respawn.
+Usamos: Npgsql EF Core, EFCore.NamingConventions, FluentValidation, AWSSDK.S3 (R2), SkiaSharp (fotos, MIT), OpenAPI nativo. Testes: xUnit v3, Mvc.Testing, Testcontainers.PostgreSql, Respawn.
 
-Evitamos: MediatR, AutoMapper, FluentAssertions 8+ (licenças comerciais); Swashbuckle; Carter/FastEndpoints (descoberta por reflexão); Hangfire/Quartz; repositório genérico, Specification, ErrorOr/OneOf.
+Evitamos: MediatR, AutoMapper, FluentAssertions 8+, ImageSharp 4 (licenças comerciais); Swashbuckle; Carter/FastEndpoints (descoberta por reflexão); Hangfire/Quartz; repositório genérico, Specification, ErrorOr/OneOf.

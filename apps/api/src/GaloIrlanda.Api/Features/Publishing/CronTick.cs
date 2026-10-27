@@ -1,5 +1,7 @@
 using GaloIrlanda.Api.Data;
 using GaloIrlanda.Api.Domain;
+using GaloIrlanda.Api.Features.Photos;
+using GaloIrlanda.Api.Integrations.Storage;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,13 +13,13 @@ namespace GaloIrlanda.Api.Features.Publishing;
 /// </summary>
 public static class CronTick
 {
-    public sealed record Response(int DuePosts, int ExpiredTokens, int OldSessions, bool Triggered);
+    public sealed record Response(int DuePosts, int ExpiredTokens, int OldSessions, int PurgedPhotos, bool Triggered);
 
     public static void Map(RouteGroupBuilder group) =>
         group.MapPost("/cron/tick", Handle).WithName(nameof(CronTick));
 
     private static async Task<Ok<Response>> Handle(
-        AppDbContext db, SiteRebuilder rebuilder, TimeProvider clock, CancellationToken ct)
+        AppDbContext db, SiteRebuilder rebuilder, IObjectStorage storage, TimeProvider clock, CancellationToken ct)
     {
         var now = clock.GetUtcNow();
 
@@ -45,7 +47,16 @@ public static class CronTick
             .Where(s => s.ExpiresAt < sessionCutoff || s.RevokedAt < sessionCutoff)
             .ExecuteDeleteAsync(ct);
 
+        // Fotos excluídas: apaga os arquivos e só depois a linha.
+        var deletedPhotos = await db.Photos.Where(p => p.DeletedAt != null).ToListAsync(ct);
+        foreach (var photo in deletedPhotos)
+        {
+            await storage.DeleteAsync(PhotoProcessor.Keys(photo.Id), ct);
+            db.Photos.Remove(photo);
+        }
+        await db.SaveChangesAsync(ct);
+
         var triggered = await rebuilder.TryTriggerAsync(force: false, ct);
-        return TypedResults.Ok(new Response(duePosts, expiredTokens, oldSessions, triggered));
+        return TypedResults.Ok(new Response(duePosts, expiredTokens, oldSessions, deletedPhotos.Count, triggered));
     }
 }

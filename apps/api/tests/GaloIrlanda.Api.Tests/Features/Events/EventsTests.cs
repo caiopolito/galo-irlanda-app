@@ -41,6 +41,7 @@ public sealed class EventsTests(ApiFactory api) : IAsyncLifetime
         Competition: "Brasileirão",
         HomeTrip: null,
         DescriptionMd: null,
+        CoverPhotoId: null,
         Status: EventStatus.Confirmed,
         Capacity: null,
         SpotsTaken: 0,
@@ -114,7 +115,7 @@ public sealed class EventsTests(ApiFactory api) : IAsyncLifetime
         var created = await CreateAsync(NewMatch());
         var client = await api.CreateClientAsAsync(Roles.Editor);
         UpdateEvent.Request Edit(string title, uint version) => new(
-            EventKind.Match, title, KickoffInBh, "DUB", null, "Pub parceiro", "Adversário", null, null, null,
+            EventKind.Match, title, KickoffInBh, "DUB", null, "Pub parceiro", "Adversário", null, null, null, null,
             EventStatus.Confirmed, null, 0, version);
 
         var first = await client.PutAsJsonAsync($"/api/admin/events/{created.Id}", Edit("Primeira edição", created.Version), Json.Options, Ct);

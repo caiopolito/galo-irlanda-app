@@ -12,6 +12,7 @@
     "test:api": "dotnet test apps/api/GaloIrlanda.slnx",
     "test:web": "npm run test -w apps/web",
     "db:up": "docker compose up -d db",
-    "db:migrate": "cd apps/api && dotnet tool restore && dotnet ef database update --project src/GaloIrlanda.Api"
+    "db:migrate": "cd apps/api && dotnet tool restore && dotnet ef database update --project src/GaloIrlanda.Api",
+    "db:seed-layout": "dotnet run --project apps/api/src/GaloIrlanda.Api -- seed-layout"
   }
 }

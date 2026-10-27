@@ -21,6 +21,7 @@ public static class CreateEvent
         string? Competition,
         string? HomeTrip,
         string? DescriptionMd,
+        Guid? CoverPhotoId,
         EventStatus Status,
         int? Capacity,
         int SpotsTaken,
@@ -67,6 +68,10 @@ public static class CreateEvent
             !await db.Venues.AnyAsync(v => v.Id == venueId && v.CityCode == cityCode && v.IsActive, ct))
             return Invalid("venueId", "Local não encontrado nesta cidade.");
 
+        if (request.CoverPhotoId is { } photoId &&
+            !await db.Photos.AnyAsync(p => p.Id == photoId && p.DeletedAt == null, ct))
+            return Invalid("coverPhotoId", "Foto não encontrada.");
+
         var startsAt = request.StartsAt.ToUniversalTime();
         var ev = new Event
         {
@@ -81,6 +86,7 @@ public static class CreateEvent
             Competition = request.Competition,
             HomeTrip = request.HomeTrip,
             DescriptionMd = request.DescriptionMd,
+            CoverPhotoId = request.CoverPhotoId,
             Status = request.Status,
             Capacity = request.Capacity,
             SpotsTaken = request.SpotsTaken,
