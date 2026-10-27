@@ -21,4 +21,9 @@
     <PackageReference Include="Stripe.net" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Fontes do layout (OFL) para gerar o PDF da carteirinha: o container do Fly não tem fontes do sistema. -->
+    <EmbeddedResource Include="Assets/Fonts/*.ttf" />
+  </ItemGroup>
+
 </Project>

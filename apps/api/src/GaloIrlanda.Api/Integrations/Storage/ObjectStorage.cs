@@ -11,6 +11,8 @@ public interface IObjectStorage
 {
     Task PutAsync(string key, Stream content, string contentType, CancellationToken ct);
     Task DeleteAsync(IReadOnlyCollection<string> keys, CancellationToken ct);
+    /// <summary>Lê um arquivo privado (documentos de sócio), entregue pela API com autenticação.</summary>
+    Task<Stream?> OpenReadAsync(string key, CancellationToken ct);
     string PublicUrl(string key);
 }
 
@@ -52,6 +54,19 @@ public sealed class R2ObjectStorage(IAmazonS3 s3, IOptions<StorageOptions> optio
         }, ct);
     }
 
+    public async Task<Stream?> OpenReadAsync(string key, CancellationToken ct)
+    {
+        try
+        {
+            var response = await s3.GetObjectAsync(options.Value.R2Bucket, key, ct);
+            return response.ResponseStream;
+        }
+        catch (AmazonS3Exception ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return null;
+        }
+    }
+
     public string PublicUrl(string key) => options.Value.PublicBaseUrl + key;
 }
 
@@ -71,6 +86,12 @@ public sealed class LocalObjectStorage(IOptions<StorageOptions> options, IHostEn
     {
         foreach (var key in keys) File.Delete(Path.Combine(Root, key));
         return Task.CompletedTask;
+    }
+
+    public Task<Stream?> OpenReadAsync(string key, CancellationToken ct)
+    {
+        var path = Path.Combine(Root, key);
+        return Task.FromResult<Stream?>(File.Exists(path) ? File.OpenRead(path) : null);
     }
 
     public string PublicUrl(string key) => options.Value.PublicBaseUrl + key;

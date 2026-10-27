@@ -1,3 +1,4 @@
+using GaloIrlanda.Api.Common.Auth;
 using GaloIrlanda.Api.Common.Http;
 using GaloIrlanda.Api.Data;
 using GaloIrlanda.Api.Domain;
@@ -119,6 +120,34 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         var client = await CreateClientAsAsync(role);
         var header = client.DefaultRequestHeaders.GetValues(TestAuthHandler.HeaderName).Single();
         return (client, Guid.Parse(header.Split(':')[0]));
+    }
+
+    /// <summary>Cliente de um sócio (papel, ficha e assinatura). <paramref name="active"/>: mensalidade em dia.</summary>
+    public async Task<(HttpClient Client, Guid UserId)> CreateMemberClientAsync(bool active = true, string name = "Maria da Silva")
+    {
+        await using (var db = CreateDbContext())
+        {
+            if (!await db.Cities.AnyAsync(c => c.Code == "DUB")) db.Cities.Add(new City { Code = "DUB", Name = "Dublin" });
+            if (!await db.SiteSettings.AnyAsync()) db.SiteSettings.Add(new SiteSettings { MembershipFeeCents = 1500 });
+            await db.SaveChangesAsync();
+        }
+
+        var (client, userId) = await CreateClientWithUserAsync(Roles.Socio);
+        await using (var db = CreateDbContext())
+        {
+            db.Members.Add(new Member
+            {
+                UserId = userId, FullName = name, CityCode = "DUB", JoinedAt = Clock.GetUtcNow(),
+                ReferralCode = Guid.NewGuid().ToString("N")[..8].ToUpperInvariant(), PhotoTagOptIn = true,
+            });
+            db.Subscriptions.Add(new Subscription
+            {
+                UserId = userId, StripeCustomerId = $"cus_{userId:N}", StripeSubscriptionId = $"sub_{userId:N}",
+                Status = active ? "active" : "past_due", CurrentPeriodEnd = Clock.GetUtcNow().AddDays(20),
+            });
+            await db.SaveChangesAsync();
+        }
+        return (client, userId);
     }
 
     public AppDbContext CreateDbContext() =>

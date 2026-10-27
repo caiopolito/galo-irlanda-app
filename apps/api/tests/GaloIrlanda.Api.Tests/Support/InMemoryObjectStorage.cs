@@ -20,5 +20,8 @@ public sealed class InMemoryObjectStorage : IObjectStorage
         return Task.CompletedTask;
     }
 
+    public Task<Stream?> OpenReadAsync(string key, CancellationToken ct) =>
+        Task.FromResult<Stream?>(Objects.TryGetValue(key, out var bytes) ? new MemoryStream(bytes) : null);
+
     public string PublicUrl(string key) => "https://fotos.teste/" + key;
 }

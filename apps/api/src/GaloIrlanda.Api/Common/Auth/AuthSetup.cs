@@ -40,7 +40,8 @@ public static class AuthSetup
 
         services.AddAuthorizationBuilder()
             .AddPolicy(Policies.Admin, policy => policy.RequireRole(Roles.Admin))
-            .AddPolicy(Policies.Editor, policy => policy.RequireRole(Roles.Admin, Roles.Editor));
+            .AddPolicy(Policies.Editor, policy => policy.RequireRole(Roles.Admin, Roles.Editor))
+            .AddPolicy(Policies.Socio, policy => policy.RequireRole(Roles.Socio));
 
         return services;
     }

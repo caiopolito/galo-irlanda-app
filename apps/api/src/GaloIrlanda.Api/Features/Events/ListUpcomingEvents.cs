@@ -34,7 +34,8 @@ public static class ListUpcomingEvents
             .OrderBy(e => e.StartsAt)
             .Take(Limit)
             .Select(e => new Item(e.Id, e.Slug, e.Kind, e.Title, e.StartsAt, e.CityCode, e.City.Name,
-                e.Venue != null ? e.Venue.Name : e.VenueNote ?? "", e.Status, e.Capacity, e.SpotsTaken))
+                e.Venue != null ? e.Venue.Name : e.VenueNote ?? "", e.Status, e.Capacity,
+                e.SpotsTaken + db.EventRsvps.Count(r => r.EventId == e.Id && r.Answer == RsvpAnswer.Going)))
             .ToListAsync(ct);
 
         return TypedResults.Ok(items);

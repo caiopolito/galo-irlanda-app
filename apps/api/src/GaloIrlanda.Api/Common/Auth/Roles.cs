@@ -14,4 +14,7 @@ public static class Policies
 
     /// <summary>Editores e administradores (criar e editar conteúdo).</summary>
     public const string Editor = "editor";
+
+    /// <summary>Sócios (área do sócio).</summary>
+    public const string Socio = "socio";
 }

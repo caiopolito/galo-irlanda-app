@@ -20,11 +20,19 @@ public sealed record CheckoutRequest(
 
 public sealed record SubscriptionState(string Status, DateTimeOffset? CurrentPeriodEnd, bool CancelAtPeriodEnd);
 
+public sealed record InvoiceSummary(DateTimeOffset Date, long AmountCents, string Currency, string? ReceiptUrl);
+
+public sealed record BillingSummary(string? CardLast4, IReadOnlyList<InvoiceSummary> Invoices);
+
 /// <summary>Chamadas ao Stripe usadas pela torcida. Interface para os testes não falarem com o Stripe.</summary>
 public interface IStripeGateway
 {
     Task<string> CreateCheckoutUrlAsync(CheckoutRequest request, CancellationToken ct);
     Task<SubscriptionState> GetSubscriptionAsync(string subscriptionId, CancellationToken ct);
+    /// <summary>Cartão e últimos recibos pagos, lidos na hora do Stripe (não guardamos dados de pagamento).</summary>
+    Task<BillingSummary> GetBillingAsync(string customerId, string subscriptionId, CancellationToken ct);
+    /// <summary>Portal do Stripe para trocar cartão, ver recibos e cancelar.</summary>
+    Task<string> CreatePortalUrlAsync(string customerId, string returnUrl, CancellationToken ct);
 }
 
 public sealed class StripeGateway(IOptions<StripeOptions> options) : IStripeGateway
@@ -51,6 +59,30 @@ public sealed class StripeGateway(IOptions<StripeOptions> options) : IStripeGate
     {
         var subscription = await new SubscriptionService(Client).GetAsync(subscriptionId, cancellationToken: ct);
         return ToState(subscription);
+    }
+
+    public async Task<BillingSummary> GetBillingAsync(string customerId, string subscriptionId, CancellationToken ct)
+    {
+        var subscription = await new SubscriptionService(Client).GetAsync(subscriptionId,
+            new SubscriptionGetOptions { Expand = ["default_payment_method"] }, cancellationToken: ct);
+        var invoices = await new InvoiceService(Client).ListAsync(
+            new InvoiceListOptions { Customer = customerId, Status = "paid", Limit = 12 }, cancellationToken: ct);
+
+        return new BillingSummary(
+            subscription.DefaultPaymentMethod?.Card?.Last4,
+            invoices.Data.Select(i => new InvoiceSummary(
+                new DateTimeOffset(DateTime.SpecifyKind(i.Created, DateTimeKind.Utc)),
+                i.AmountPaid,
+                i.Currency,
+                i.HostedInvoiceUrl)).ToList());
+    }
+
+    public async Task<string> CreatePortalUrlAsync(string customerId, string returnUrl, CancellationToken ct)
+    {
+        var session = await new global::Stripe.BillingPortal.SessionService(Client).CreateAsync(
+            new global::Stripe.BillingPortal.SessionCreateOptions { Customer = customerId, ReturnUrl = returnUrl, Locale = "pt-BR" },
+            cancellationToken: ct);
+        return session.Url;
     }
 
     public static SubscriptionState ToState(global::Stripe.Subscription subscription)

@@ -71,7 +71,8 @@ public static class GetLanding
             .OrderBy(e => e.StartsAt)
             .Take(BoardLimit)
             .Select(e => new BoardEvent(e.Id, e.Slug, e.Kind, e.Title, e.StartsAt,
-                e.Venue != null ? e.Venue.Name : e.VenueNote ?? "", e.CityCode, e.City.Name, e.Status, e.Capacity, e.SpotsTaken))
+                e.Venue != null ? e.Venue.Name : e.VenueNote ?? "", e.CityCode, e.City.Name, e.Status, e.Capacity,
+                e.SpotsTaken + db.EventRsvps.Count(r => r.EventId == e.Id && r.Answer == RsvpAnswer.Going)))
             .ToListAsync(ct);
 
         var match = await upcoming
@@ -79,7 +80,8 @@ public static class GetLanding
             .OrderBy(e => e.StartsAt)
             .Select(e => new
             {
-                e.Slug, e.Title, e.StartsAt, e.HomeTrip, e.SpotsTaken, e.CoverPhotoId,
+                e.Slug, e.Title, e.StartsAt, e.HomeTrip, e.CoverPhotoId,
+                SpotsTaken = e.SpotsTaken + db.EventRsvps.Count(r => r.EventId == e.Id && r.Answer == RsvpAnswer.Going),
                 Place = e.Venue != null
                     ? (e.Venue.Neighborhood != null ? e.Venue.Name + ", " + e.Venue.Neighborhood : e.Venue.Name)
                     : e.VenueNote ?? "",

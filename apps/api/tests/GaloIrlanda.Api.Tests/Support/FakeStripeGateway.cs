@@ -17,9 +17,18 @@ public sealed class FakeStripeGateway : IStripeGateway
         Task.FromResult(Subscriptions.GetValueOrDefault(subscriptionId)
             ?? new SubscriptionState("active", new DateTimeOffset(2026, 12, 1, 0, 0, 0, TimeSpan.Zero), false));
 
+    public BillingSummary Billing { get; set; } = new("4242", []);
+
+    public Task<BillingSummary> GetBillingAsync(string customerId, string subscriptionId, CancellationToken ct) =>
+        Task.FromResult(Billing);
+
+    public Task<string> CreatePortalUrlAsync(string customerId, string returnUrl, CancellationToken ct) =>
+        Task.FromResult($"https://billing.stripe.test/{customerId}");
+
     public void Reset()
     {
         Checkouts.Clear();
         Subscriptions.Clear();
+        Billing = new("4242", []);
     }
 }

@@ -11,6 +11,7 @@ using GaloIrlanda.Api.Features.Events;
 using GaloIrlanda.Api.Features.Health;
 using GaloIrlanda.Api.Features.History;
 using GaloIrlanda.Api.Features.Landing;
+using GaloIrlanda.Api.Features.MemberArea;
 using GaloIrlanda.Api.Features.Membership;
 using GaloIrlanda.Api.Features.Milestones;
 using GaloIrlanda.Api.Features.Photos;
@@ -49,6 +50,7 @@ services.AddStorage(builder.Configuration);
 services.AddPhotos();
 services.AddStripe(builder.Configuration);
 services.AddMembership();
+services.AddMemberArea();
 
 var app = builder.Build();
 
@@ -89,6 +91,7 @@ groups.MapHistoryEndpoints();
 groups.MapPublishingEndpoints();
 groups.MapLandingEndpoints();
 groups.MapMembershipEndpoints(app);
+groups.MapMemberAreaEndpoints();
 
 await BootstrapAdmin.EnsureAsync(app.Services);
 

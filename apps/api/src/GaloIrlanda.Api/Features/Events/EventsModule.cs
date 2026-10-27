@@ -14,6 +14,8 @@ public static class EventsModule
         PublishEvent.Map(admin);
         DeleteEvent.Map(admin);
 
-        ListUpcomingEvents.Map(groups.Public.MapGroup("/events").WithTags("Público"));
+        var @public = groups.Public.MapGroup("/events").WithTags("Público");
+        ListUpcomingEvents.Map(@public);
+        GetCalendar.Map(groups.Public.WithTags("Público"));
     }
 }

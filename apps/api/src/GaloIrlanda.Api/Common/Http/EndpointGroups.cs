@@ -5,7 +5,11 @@ namespace GaloIrlanda.Api.Common.Http;
 
 /// <summary>Grupos de rota: quem pode chamar um slice é decidido pelo grupo em que o módulo o registra.</summary>
 public sealed record EndpointGroups(
-    RouteGroupBuilder Admin, RouteGroupBuilder Public, RouteGroupBuilder Auth, RouteGroupBuilder Internal);
+    RouteGroupBuilder Admin,
+    RouteGroupBuilder Public,
+    RouteGroupBuilder Auth,
+    RouteGroupBuilder Member,
+    RouteGroupBuilder Internal);
 
 public static class EndpointGroupsExtensions
 {
@@ -21,10 +25,12 @@ public static class EndpointGroupsExtensions
 
         var auth = api.MapGroup("/auth").WithTags("Auth");
 
+        var member = api.MapGroup("/socio").RequireAuthorization(Policies.Socio).WithTags("Sócio");
+
         var @internal = app.MapGroup("/internal")
             .AddEndpointFilter<InternalSecretFilter>()
             .ExcludeFromDescription();
 
-        return new EndpointGroups(admin, @public, auth, @internal);
+        return new EndpointGroups(admin, @public, auth, member, @internal);
     }
 }
