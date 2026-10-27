@@ -58,3 +58,9 @@
 		font-size: 26px;
 	}
 }
+
+.clover {
+	margin-right: 4px;
+	color: var(--color-green);
+	vertical-align: -1px;
+}

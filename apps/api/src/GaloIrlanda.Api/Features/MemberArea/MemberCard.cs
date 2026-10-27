@@ -56,8 +56,19 @@ public sealed class MemberCard(IDataProtectionProvider dataProtection, IConfigur
             using (var paper = new SKPaint { Color = SKColor.Parse("#F4F1EA"), IsAntialias = true })
                 canvas.DrawRoundRect(new SKRect(0, 0, width, height), 18, 18, paper);
 
+            // Faixa tricolor no topo: verde / papel / âmbar (o âmbar faz o papel do laranja).
+            canvas.Save();
+            canvas.ClipRoundRect(new SKRoundRect(new SKRect(0, 0, width, height), 18, 18), antialias: true);
+            string[] band = ["#3A9D68", "#F4F1EA", "#F5A524"];
+            for (var i = 0; i < band.Length; i++)
+            {
+                using var stripe = new SKPaint { Color = SKColor.Parse(band[i]) };
+                canvas.DrawRect(new SKRect(i * width / 3, 0, (i + 1) * width / 3, 6), stripe);
+            }
+            canvas.Restore();
+
             Text(canvas, "Galo Irlanda · Cartão de embarque", 24, 40, serif, 14, ink);
-            DrawRoute(canvas, serif, ink);
+            DrawRoute(canvas, serif, ink, SKColor.Parse("#1E5C3C"));
             Label(canvas, "Passageiro", member.FullName, 24, 150, sans, muted, ink);
             Label(canvas, "Sócio nº", member.MemberNumber.ToString("0000"), 24, 200, sans, muted, ink);
             Label(canvas, "Válido até", validUntil?.ToString("dd/MM/yyyy") ?? "—", 130, 200, sans, muted, ink);
@@ -82,12 +93,12 @@ public sealed class MemberCard(IDataProtectionProvider dataProtection, IConfigur
     }
 
     /// <summary>"DUB ⇢ CNF": a Young Serif não tem seta, então a seta é desenhada (tracejada, como no layout).</summary>
-    private static void DrawRoute(SKCanvas canvas, SKTypeface serif, SKColor ink)
+    private static void DrawRoute(SKCanvas canvas, SKTypeface serif, SKColor ink, SKColor green)
     {
         const float size = 34;
         using var font = new SKFont(serif, size);
         var dubWidth = font.MeasureText("DUB");
-        Text(canvas, "DUB", 24, 100, serif, size, ink);
+        Text(canvas, "DUB", 24, 100, serif, size, green);
 
         var start = 24 + dubWidth + 10;
         var end = start + 36;

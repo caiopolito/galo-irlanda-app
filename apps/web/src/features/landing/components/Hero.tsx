@@ -1,4 +1,5 @@
 import { Button } from "#/components/ui/Button";
+import { Clover } from "#/components/ui/Clover";
 import { HandNote } from "#/components/ui/HandNote";
 import { Photo } from "#/components/ui/Photo";
 import { Placeholder } from "#/components/ui/Placeholder";
@@ -18,13 +19,13 @@ export function Hero({ photo, nextMatch }: HeroProps) {
 		<section className={styles.hero} aria-labelledby="hero-title">
 			<div className={styles.intro}>
 				<span className={styles.eyebrow}>
-					<span className={styles.dot} aria-hidden="true" />
+					<Clover filled size={14} className={styles.eyebrowClover} />
 					Torcida atleticana em Dublin, Cork e Galway
 				</span>
 				<h1 id="hero-title" className={styles.title}>
 					O Galo nunca joga sozinho.
 				</h1>
-				<HandNote underline>nem às 2 da manhã em Dublin.</HandNote>
+				<HandNote underline="clover">nem às 2 da manhã em Dublin.</HandNote>
 				<p className={styles.lead}>
 					Somos a turma que acorda de madrugada, atravessa a cidade no frio e
 					enche um pub irlandês de mineiro. Jogo, churrasco, pelada e uma
@@ -48,7 +49,10 @@ export function Hero({ photo, nextMatch }: HeroProps) {
 				)}
 				{nextMatch && kickoff && (
 					<div className={styles.nextCard}>
-						<span className={styles.nextLabel}>PRÓXIMO EMBARQUE</span>
+						<span className={styles.nextLabel}>
+							<Clover filled size={12} className={styles.nextClover} />
+							PRÓXIMO EMBARQUE
+						</span>
 						<span className={styles.nextTitle}>{nextMatch.title}</span>
 						<span className={styles.nextTime}>
 							{formatWeekdayShort(kickoff, "dublin")} ·{" "}

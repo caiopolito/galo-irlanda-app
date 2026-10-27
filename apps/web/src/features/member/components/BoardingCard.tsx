@@ -32,12 +32,16 @@ export function BoardingCard() {
 							<Monogram size={30} />
 							Cartão de embarque
 						</span>
-						<span className={styles.cardSeason}>
-							TEMPORADA {new Date().getFullYear()}
-						</span>
+						{isActive ? (
+							<span className={styles.activeChip}>SÓCIO ATIVO</span>
+						) : (
+							<span className={styles.cardSeason}>
+								TEMPORADA {new Date().getFullYear()}
+							</span>
+						)}
 					</div>
 					<div className={styles.route}>
-						<span>DUB</span>
+						<span className={styles.dub}>DUB</span>
 						<svg
 							width="56"
 							height="20"

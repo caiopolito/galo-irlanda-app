@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type FormEvent, useState } from "react";
 import { SiteFooter } from "#/components/layout/SiteFooter";
 import { SiteHeader } from "#/components/layout/SiteHeader";
+import { Clover } from "#/components/ui/Clover";
 import { HandNote } from "#/components/ui/HandNote";
 import { externalLinks } from "#/config/links";
 import { AdminButton } from "#/features/admin/ui/AdminButton";
@@ -83,10 +84,21 @@ function BecomeMember() {
 						QR code para mostrar no pub parceiro.
 					</p>
 					<ul className={styles.perks}>
-						<li>Desconto nos pubs parceiros em dia de jogo</li>
-						<li>Lugar guardado em jogo lotado</li>
-						<li>Voto nas decisões da torcida</li>
-						<li>A carteirinha mais bonita da Irlanda</li>
+						{[
+							"Desconto nos pubs parceiros em dia de jogo",
+							"Lugar guardado em jogo lotado",
+							"Voto nas decisões da torcida",
+							"A carteirinha mais bonita da Irlanda",
+						].map((perk) => (
+							<li key={perk}>
+								<Clover
+									filled
+									size={16}
+									style={{ color: "var(--color-green)" }}
+								/>
+								{perk}
+							</li>
+						))}
 					</ul>
 					<span className={styles.price}>
 						{fee === null

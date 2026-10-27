@@ -1,5 +1,11 @@
+/* Faixa tricolor fina no lugar da borda: verde / papel / âmbar. */
 .footer {
-	border-top: 1px solid var(--color-line);
+	border-top: 3px solid transparent;
+	border-image: var(--tricolor) 1;
+}
+
+.clover {
+	color: var(--color-green);
 }
 
 .inner {

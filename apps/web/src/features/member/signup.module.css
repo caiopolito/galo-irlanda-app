@@ -51,9 +51,8 @@
 	font-size: 15px;
 }
 
-.perks li::before {
-	content: "✈";
-	color: var(--color-amber);
+.perks li {
+	align-items: center;
 }
 
 .price {

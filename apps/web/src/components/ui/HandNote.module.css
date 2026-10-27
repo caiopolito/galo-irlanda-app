@@ -25,3 +25,14 @@
 	margin-top: 2px;
 	color: var(--color-amber);
 }
+
+.cloverUnderline {
+	display: inline-flex;
+	align-items: flex-start;
+}
+
+.cloverEnd {
+	margin: 2px 0 0 -4px;
+	color: var(--color-green);
+	transform: rotate(-150deg);
+}

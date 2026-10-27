@@ -1,3 +1,4 @@
+import { Clover } from "#/components/ui/Clover";
 import { Monogram } from "#/components/ui/Monogram";
 import { type ExternalLinks, externalLinks, links } from "#/config/links";
 import styles from "./SiteFooter.module.css";
@@ -20,6 +21,7 @@ export function SiteFooter({
 				<p className={styles.tagline}>
 					<Monogram size={40} />
 					Eu acredito. Em qualquer fuso.
+					<Clover size={26} className={styles.clover} />
 				</p>
 				<nav aria-label="Rodapé" className={styles.nav}>
 					{footerLinks.map((link) => (

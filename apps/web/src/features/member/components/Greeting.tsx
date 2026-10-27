@@ -62,7 +62,7 @@ export function Greeting({
 			<div className={styles.chips}>
 				<span className={styles.chip}>
 					<span
-						className={`${styles.dot} ${active ? "" : styles.dotWarning}`}
+						className={`${styles.dot} ${active ? styles.dotOk : styles.dotWarning}`}
 					/>
 					{active ? "Mensalidade em dia" : "Mensalidade pendente"}
 				</span>

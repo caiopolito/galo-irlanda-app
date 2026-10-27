@@ -25,6 +25,7 @@ Documento de referência para continuar o desenvolvimento do site da torcida **G
 2. **Rodada 2** — 3 landings (Painel de Embarque, Flash às 3 da Manhã, Quadro de Giz). Escolhida: **Painel de Embarque**.
 3. **Rodada 3** — Painel refeito para soar menos "feito por IA": fontes trocadas, botões em pílula, cantos arredondados, anotações à mão. Criada a **A1 · Área do sócio**.
 4. **Rodada 4** — versões mobile da landing e da área do sócio.
+5. **Rodada 5** — verde-trevo como segunda cor (variação B do agente de design), com o trevo no fim do sublinhado à mão e o painel em "feltro de sinuca".
 
 ## Conceito: "Painel de Embarque"
 
@@ -43,7 +44,11 @@ Cada jogo é um "voo" de volta pra BH. O site usa a linguagem de aeroporto (pain
 | `text` | `#F4F1EA` | Texto principal (off-white) e fundos claros ("papel") |
 | `text-soft` | `#D3CEC4` | Parágrafos |
 | `muted` | `#A8A398` | Legendas, labels |
-| `amber` | `#F5A524` | **Único destaque**: horários, status, CTA principal |
+| `amber` | `#F5A524` | Destaque de **ação e tempo**: horários, CTA, "Embarcando", anotações à mão |
+| `green` | `#3A9D68` | Verde-trevo: **Irlanda e pertencimento** (trevo, "Confirmado", "Em dia", selo DUB ⇄ CNF). 5,57:1 sobre o fundo |
+| `green-deep` | `#1E5C3C` | Verde sobre papel: "DUB" e selo "Sócio ativo" na carteirinha (7,02:1) |
+| `green-wash` | `#17241C` | Só fundo: o "feltro de sinuca" do painel de partidas |
+| `tricolor` | verde / papel / âmbar | Faixa fina no topo da carteirinha e no rodapé (o âmbar faz o papel do laranja) |
 | `ink-muted` | `#6B665C` | Labels sobre fundo claro |
 
 ### Tipografia (Google Fonts)
@@ -91,7 +96,7 @@ Saudação ("Bom dia, [Nome]." / "ou boa madrugada, né") · carteirinha em form
 
 - **Nunca usar azul** — remete ao Cruzeiro. Preto, off-white e âmbar.
 - **Escudo oficial**: pode ser usado no layout ([ADR 0012](adr/0012-uso-escudo-oficial.md)), sempre num único componente. O monograma "GI" segue como marca própria da torcida.
-- **Sem clichê irlandês**: nada de trevo/verde em excesso; no máximo um toque sutil.
+- **Verde-trevo é a cor da Irlanda e de quem é da casa** (trevo de 3 folhas, DUB, confirmado, sócio). O âmbar continua mandando em tudo que é hora e ação. Nada de verde em botão, em horário, em bloco grande saturado ou em tom de fintech. Trevo desenhado à mão (`components/ui/Clover.tsx`), de 3 folhas; o de 4 folhas só como piada pontual.
 - **Horário sempre duplo**: Dublin + Brasília, guardado em UTC e convertido por fuso, nunca por diferença fixa ([ADR 0009](adr/0009-fuso-horario-utc.md)).
 - **Não inventar dados**: usar placeholders `[Adversário]`, `[Pub parceiro]`, `€[valor]`, `[X]%`, `[dd/mm]` até ter informação real. Confirmar fatos históricos (ex.: "1950 – Campeões do Gelo") em fonte oficial antes de publicar.
 - **Aviso legal no rodapé**: "Torcida independente de atleticanos na Irlanda. Sem vínculo oficial com o Clube Atlético Mineiro."

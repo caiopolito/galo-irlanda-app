@@ -17,9 +17,20 @@
 	--color-muted: #a8a398;
 	--color-faint: #8c887f;
 
-	/* Destaque único */
+	/* Âmbar: destaque de ação e tempo (botões, horários, "Embarcando", anotações à mão) */
 	--color-amber: #f5a524;
 	--color-amber-hover: #ffc35c;
+
+	/* Verde-trevo: Irlanda e pertencimento (trevo, DUB, confirmado, sócio). Nunca em botão nem horário. */
+	--color-green: #3a9d68; /* 5.57:1 sobre --color-bg; sobre papel só gráfico ou texto >= 24px */
+	--color-green-deep: #1e5c3c; /* texto sobre papel: 7.02:1 */
+	--color-green-wash: #17241c; /* só fundo ("feltro de sinuca") */
+	--tricolor: linear-gradient(
+		90deg,
+		var(--color-green) 0 33.33%,
+		var(--color-paper) 33.33% 66.66%,
+		var(--color-amber) 66.66%
+	);
 
 	/* Fundo claro ("papel") */
 	--color-paper: #f4f1ea;

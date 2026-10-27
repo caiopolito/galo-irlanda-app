@@ -21,10 +21,10 @@ export function BoardingPass({
 			<div className={styles.main}>
 				<div className={styles.top}>
 					<span className={styles.club}>Galo Irlanda</span>
-					<span className={styles.label}>SÓCIO</span>
+					<span className={styles.label}>SÓCIO ATIVO</span>
 				</div>
 				<div className={styles.route}>
-					<span>DUB</span>
+					<span className={styles.dub}>DUB</span>
 					<span aria-hidden="true" className={styles.plane}>
 						✈
 					</span>

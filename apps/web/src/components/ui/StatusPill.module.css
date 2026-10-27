@@ -24,8 +24,8 @@
 }
 
 .confirmed {
-	border-color: var(--color-text);
-	color: var(--color-text);
+	border-color: var(--color-green);
+	color: var(--color-green);
 }
 
 .muted {
@@ -37,4 +37,9 @@
 	border-color: var(--color-line-strong);
 	border-style: dashed;
 	color: var(--color-muted);
+}
+
+.clover {
+	margin-right: 5px;
+	vertical-align: -1px;
 }

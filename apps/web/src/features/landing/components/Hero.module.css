@@ -108,7 +108,7 @@
 	width: 78px;
 	height: 78px;
 	border-radius: 50%;
-	background: var(--color-amber);
+	background: var(--color-green);
 	color: var(--color-ink);
 	text-align: center;
 	transform: rotate(12deg);
@@ -212,4 +212,14 @@
 	.primary {
 		align-self: auto;
 	}
+}
+
+.eyebrowClover {
+	color: var(--color-green);
+}
+
+.nextClover {
+	margin-right: 4px;
+	color: var(--color-green-deep);
+	vertical-align: -2px;
 }

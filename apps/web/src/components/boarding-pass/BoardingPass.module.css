@@ -1,5 +1,7 @@
 .pass {
+	position: relative;
 	display: flex;
+	overflow: hidden;
 	width: 100%;
 	max-width: 440px;
 	border-radius: 22px;
@@ -21,19 +23,27 @@
 
 .top {
 	display: flex;
+	gap: 8px;
 	align-items: center;
 	justify-content: space-between;
 }
 
 .club {
+	white-space: nowrap;
 	font-family: var(--font-display);
 	font-size: clamp(15px, 1.5vw, 18px);
 }
 
 .label {
-	color: var(--color-ink-muted);
-	font-size: 12px;
+	flex: none;
+	padding: 3px 8px;
+	white-space: nowrap;
+	border-radius: var(--radius-pill);
+	background: var(--color-green-deep);
+	color: var(--color-paper);
+	font-size: 10px;
 	font-weight: 800;
+	letter-spacing: 0.04em;
 }
 
 .route {
@@ -89,4 +99,17 @@
 .number {
 	font-family: var(--font-display);
 	font-size: clamp(20px, 2.2vw, 26px);
+}
+
+/* Faixa tricolor (verde / papel / âmbar no lugar do laranja). */
+.pass::before {
+	position: absolute;
+	inset: 0 0 auto;
+	height: 6px;
+	background: var(--tricolor);
+	content: "";
+}
+
+.dub {
+	color: var(--color-green-deep);
 }

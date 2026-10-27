@@ -308,6 +308,7 @@
 
 /* Cartão de embarque */
 .card {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
@@ -761,4 +762,31 @@ fieldset.tripAnswer {
 	margin: 0;
 	padding: 0;
 	border: 0;
+}
+
+/* Verde-trevo na carteirinha: faixa tricolor, DUB e selo de sócio ativo. */
+.card::before {
+	position: absolute;
+	inset: 0 0 auto;
+	height: 6px;
+	background: var(--tricolor);
+	content: "";
+}
+
+.dub {
+	color: var(--color-green-deep);
+}
+
+.activeChip {
+	padding: 4px 10px;
+	border-radius: var(--radius-pill);
+	background: var(--color-green-deep);
+	color: var(--color-paper);
+	font-size: 11px;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+}
+
+.dotOk {
+	background: var(--color-green);
 }

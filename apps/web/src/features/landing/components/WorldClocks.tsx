@@ -1,3 +1,4 @@
+import { Clover } from "#/components/ui/Clover";
 import { formatTime } from "#/lib/time";
 import { useNow } from "#/lib/use-now";
 import styles from "./WorldClocks.module.css";
@@ -18,6 +19,9 @@ export function WorldClocks() {
 			{clocks.map((clock) => (
 				<p key={clock.city} className={styles.clock}>
 					<span className={styles.label}>
+						{clock.accent && (
+							<Clover filled size={12} className={styles.clover} />
+						)}
 						<span className={styles.prefix}>Agora em </span>
 						{clock.city}
 					</span>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "#/components/ui/Button";
+import { Clover } from "#/components/ui/Clover";
 import { Crest } from "#/components/ui/Crest";
 import { type ExternalLinks, externalLinks, links } from "#/config/links";
 import { cx } from "#/lib/cx";
@@ -25,7 +26,10 @@ export function SiteHeader({
 			<div className={styles.inner}>
 				<a href="/" className={styles.brand}>
 					<Crest height={40} decorative className={styles.crest} />
-					<span className={styles.wordmark}>Galo Irlanda</span>
+					<span className={styles.wordmark}>
+						Galo <Clover filled size={15} className={styles.wordmarkClover} />{" "}
+						Irlanda
+					</span>
 				</a>
 
 				<nav

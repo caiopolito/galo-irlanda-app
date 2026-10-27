@@ -73,7 +73,11 @@ export function DepartureBoard({ events }: { events: BoardEvent[] }) {
 											<FlapTile>{event.cityName}</FlapTile>
 										</td>
 										<td>
-											<StatusPill tone={status.tone} className={styles.fill}>
+											<StatusPill
+												tone={status.tone}
+												clover={status.tone === "confirmed"}
+												className={styles.fill}
+											>
 												{status.label}
 											</StatusPill>
 										</td>
@@ -100,7 +104,11 @@ export function DepartureBoard({ events }: { events: BoardEvent[] }) {
 										<span>
 											{event.place} · {event.cityName}
 										</span>
-										<StatusPill tone={status.tone} size="sm">
+										<StatusPill
+											tone={status.tone}
+											clover={status.tone === "confirmed"}
+											size="sm"
+										>
 											{status.label}
 										</StatusPill>
 									</div>
