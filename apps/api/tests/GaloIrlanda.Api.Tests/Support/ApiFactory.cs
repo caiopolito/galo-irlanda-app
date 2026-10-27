@@ -4,6 +4,7 @@ using GaloIrlanda.Api.Domain;
 using GaloIrlanda.Api.Integrations.Cloudflare;
 using GaloIrlanda.Api.Integrations.Email;
 using GaloIrlanda.Api.Integrations.Storage;
+using GaloIrlanda.Api.Integrations.Stripe;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -26,6 +27,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     public FakeDeployHook DeployHook { get; } = new();
     public FakeEmailSender Email { get; } = new();
     public InMemoryObjectStorage Storage { get; } = new();
+    public FakeStripeGateway Stripe { get; } = new();
 
     public async ValueTask InitializeAsync()
     {
@@ -56,6 +58,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         DeployHook.Calls = 0;
         Email.Sent.Clear();
         Storage.Objects.Clear();
+        Stripe.Reset();
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -65,12 +68,16 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         builder.UseSetting("Internal:Secret", "segredo-de-teste");
         builder.UseSetting("Site:PublicUrl", "https://site.teste");
         builder.UseSetting("Auth:RateLimitPerMinute", "1000");
+        builder.UseSetting("Stripe:SecretKey", "sk_test_teste");
+        builder.UseSetting("Stripe:WebhookSecret", StripeWebhooks.Secret);
+        builder.UseSetting("Stripe:PriceId", "price_teste");
         builder.ConfigureTestServices(services =>
         {
             services.AddSingleton<TimeProvider>(Clock);
             services.AddSingleton<IDeployHook>(DeployHook);
             services.AddSingleton<IEmailSender>(Email);
             services.AddSingleton<IObjectStorage>(Storage);
+            services.AddSingleton<IStripeGateway>(Stripe);
             services.AddAuthentication(TestAuthHandler.SchemeName)
                 .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.SchemeName, null);
         });

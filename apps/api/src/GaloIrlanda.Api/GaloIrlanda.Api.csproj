@@ -15,8 +15,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <!-- Processamento de fotos (MIT). O pacote Linux leva o binário nativo para o container do Fly. -->
+    <PackageReference Include="QRCoder" />
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
+    <PackageReference Include="Stripe.net" />
   </ItemGroup>
 
 </Project>

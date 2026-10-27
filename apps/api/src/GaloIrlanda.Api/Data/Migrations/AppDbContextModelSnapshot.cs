@@ -23,6 +23,8 @@ namespace GaloIrlanda.Api.Data.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "citext");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("member_number_seq");
+
             modelBuilder.Entity("GaloIrlanda.Api.Domain.AuditEntry", b =>
                 {
                     b.Property<long>("Id")
@@ -70,6 +72,83 @@ namespace GaloIrlanda.Api.Data.Migrations
                         .HasDatabaseName("ix_audit_log_entity_type_entity_id_occurred_at");
 
                     b.ToTable("audit_log", (string)null);
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Benefit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Headline")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("headline");
+
+                    b.Property<bool>("Highlight")
+                        .HasColumnType("boolean")
+                        .HasColumnName("highlight");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<short>("SortOrder")
+                        .HasColumnType("smallint")
+                        .HasColumnName("sort_order");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
+                        .HasColumnName("title");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by");
+
+                    b.Property<Guid?>("VenueId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("venue_id");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id")
+                        .HasName("pk_benefits");
+
+                    b.HasIndex("CreatedBy")
+                        .HasDatabaseName("ix_benefits_created_by");
+
+                    b.HasIndex("UpdatedBy")
+                        .HasDatabaseName("ix_benefits_updated_by");
+
+                    b.HasIndex("VenueId")
+                        .HasDatabaseName("ix_benefits_venue_id");
+
+                    b.ToTable("benefits", (string)null);
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.City", b =>
@@ -139,6 +218,87 @@ namespace GaloIrlanda.Api.Data.Migrations
                         {
                             t.HasCheckConstraint("ck_cities_code", "code ~ '^[A-Z]{3}$'");
                         });
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Document", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("content_type");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("file_name");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_published");
+
+                    b.Property<long>("SizeBytes")
+                        .HasColumnType("bigint")
+                        .HasColumnName("size_bytes");
+
+                    b.Property<short>("SortOrder")
+                        .HasColumnType("smallint")
+                        .HasColumnName("sort_order");
+
+                    b.Property<string>("StorageKey")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("storage_key");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("title");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id")
+                        .HasName("pk_documents");
+
+                    b.HasIndex("CreatedBy")
+                        .HasDatabaseName("ix_documents_created_by");
+
+                    b.HasIndex("StorageKey")
+                        .IsUnique()
+                        .HasDatabaseName("ix_documents_storage_key");
+
+                    b.HasIndex("UpdatedBy")
+                        .HasDatabaseName("ix_documents_updated_by");
+
+                    b.ToTable("documents", (string)null);
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.Event", b =>
@@ -288,6 +448,37 @@ namespace GaloIrlanda.Api.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.EventRsvp", b =>
+                {
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("event_id");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("answer");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("EventId", "UserId")
+                        .HasName("pk_event_rsvps");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_event_rsvps_user_id");
+
+                    b.ToTable("event_rsvps", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_event_rsvps_answer", "answer IN ('going', 'maybe', 'not_going')");
+                        });
+                });
+
             modelBuilder.Entity("GaloIrlanda.Api.Domain.LoginToken", b =>
                 {
                     b.Property<Guid>("Id")
@@ -328,6 +519,90 @@ namespace GaloIrlanda.Api.Data.Migrations
                         .HasDatabaseName("ix_login_tokens_user_id_created_at");
 
                     b.ToTable("login_tokens", (string)null);
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Member", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.Property<short>("CardKeyVersion")
+                        .HasColumnType("smallint")
+                        .HasColumnName("card_key_version");
+
+                    b.Property<string>("CityCode")
+                        .IsRequired()
+                        .HasColumnType("char(3)")
+                        .HasColumnName("city_code");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("full_name");
+
+                    b.Property<DateTimeOffset>("JoinedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("joined_at");
+
+                    b.Property<int>("MemberNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("member_number")
+                        .HasDefaultValueSql("nextval('member_number_seq')");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("phone");
+
+                    b.Property<bool>("PhotoTagOptIn")
+                        .HasColumnType("boolean")
+                        .HasColumnName("photo_tag_opt_in");
+
+                    b.Property<string>("ReferralCode")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("character varying(12)")
+                        .HasColumnName("referral_code");
+
+                    b.Property<Guid?>("ReferredBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("referred_by");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("UserId")
+                        .HasName("pk_members");
+
+                    b.HasIndex("CityCode")
+                        .HasDatabaseName("ix_members_city_code");
+
+                    b.HasIndex("MemberNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ix_members_member_number");
+
+                    b.HasIndex("ReferralCode")
+                        .IsUnique()
+                        .HasDatabaseName("ix_members_referral_code");
+
+                    b.HasIndex("ReferredBy")
+                        .HasDatabaseName("ix_members_referred_by");
+
+                    b.ToTable("members", (string)null);
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.Milestone", b =>
@@ -538,6 +813,198 @@ namespace GaloIrlanda.Api.Data.Migrations
 
                             t.HasCheckConstraint("ck_photos_wall", "NOT wall_featured OR visibility = 'public'");
                         });
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PhotoTag", b =>
+                {
+                    b.Property<Guid>("PhotoId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("photo_id");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("TaggedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tagged_by");
+
+                    b.HasKey("PhotoId", "UserId")
+                        .HasName("pk_photo_tags");
+
+                    b.HasIndex("TaggedBy")
+                        .HasDatabaseName("ix_photo_tags_tagged_by");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_photo_tags_user_id");
+
+                    b.ToTable("photo_tags", (string)null);
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Poll", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("ClosesAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("closes_at");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("HandNote")
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
+                        .HasColumnName("hand_note");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_published");
+
+                    b.Property<bool>("IsSecret")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_secret");
+
+                    b.Property<DateTimeOffset>("OpensAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("opens_at");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("character varying(160)")
+                        .HasColumnName("title");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("updated_by");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id")
+                        .HasName("pk_polls");
+
+                    b.HasIndex("CreatedBy")
+                        .HasDatabaseName("ix_polls_created_by");
+
+                    b.HasIndex("UpdatedBy")
+                        .HasDatabaseName("ix_polls_updated_by");
+
+                    b.ToTable("polls", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_polls_period", "closes_at > opens_at");
+                        });
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PollBallot", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("OptionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("option_id");
+
+                    b.Property<Guid>("PollId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("poll_id");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_poll_ballots");
+
+                    b.HasIndex("OptionId")
+                        .HasDatabaseName("ix_poll_ballots_option_id");
+
+                    b.HasIndex("PollId")
+                        .HasDatabaseName("ix_poll_ballots_poll_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_poll_ballots_user_id");
+
+                    b.ToTable("poll_ballots", (string)null);
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PollOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("label");
+
+                    b.Property<Guid>("PollId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("poll_id");
+
+                    b.Property<short>("SortOrder")
+                        .HasColumnType("smallint")
+                        .HasColumnName("sort_order");
+
+                    b.HasKey("Id")
+                        .HasName("pk_poll_options");
+
+                    b.HasIndex("PollId")
+                        .HasDatabaseName("ix_poll_options_poll_id");
+
+                    b.ToTable("poll_options", (string)null);
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PollParticipation", b =>
+                {
+                    b.Property<Guid>("PollId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("poll_id");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.Property<DateTimeOffset>("VotedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("voted_at");
+
+                    b.HasKey("PollId", "UserId")
+                        .HasName("pk_poll_participations");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_poll_participations_user_id");
+
+                    b.ToTable("poll_participations", (string)null);
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.Post", b =>
@@ -852,6 +1319,101 @@ namespace GaloIrlanda.Api.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.StripeEvent", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Error")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("error");
+
+                    b.Property<DateTimeOffset?>("ProcessedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processed_at");
+
+                    b.Property<DateTimeOffset>("ReceivedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("received_at");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_stripe_events");
+
+                    b.ToTable("stripe_events", (string)null);
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("CancelAtPeriodEnd")
+                        .HasColumnType("boolean")
+                        .HasColumnName("cancel_at_period_end");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTimeOffset?>("CurrentPeriodEnd")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("current_period_end");
+
+                    b.Property<DateTimeOffset>("LastEventAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("last_event_at");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("StripeCustomerId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("stripe_customer_id");
+
+                    b.Property<string>("StripeSubscriptionId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("stripe_subscription_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_subscriptions");
+
+                    b.HasIndex("StripeCustomerId")
+                        .HasDatabaseName("ix_subscriptions_stripe_customer_id");
+
+                    b.HasIndex("StripeSubscriptionId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_subscriptions_stripe_subscription_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_subscriptions_user_id");
+
+                    b.ToTable("subscriptions", (string)null);
+                });
+
             modelBuilder.Entity("GaloIrlanda.Api.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1067,6 +1629,27 @@ namespace GaloIrlanda.Api.Data.Migrations
                         .HasConstraintName("fk_audit_log_users_actor_user_id");
                 });
 
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Benefit", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_benefits_users_created_by");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_benefits_users_updated_by");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.Venue", null)
+                        .WithMany()
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_benefits_venues_venue_id");
+                });
+
             modelBuilder.Entity("GaloIrlanda.Api.Domain.City", b =>
                 {
                     b.HasOne("GaloIrlanda.Api.Domain.User", null)
@@ -1088,6 +1671,21 @@ namespace GaloIrlanda.Api.Data.Migrations
                         .HasConstraintName("fk_cities_users_updated_by");
 
                     b.Navigation("Photo");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Document", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_documents_users_created_by");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_documents_users_updated_by");
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.Event", b =>
@@ -1130,6 +1728,23 @@ namespace GaloIrlanda.Api.Data.Migrations
                     b.Navigation("Venue");
                 });
 
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.EventRsvp", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.Event", null)
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_event_rsvps_events_event_id");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_event_rsvps_users_user_id");
+                });
+
             modelBuilder.Entity("GaloIrlanda.Api.Domain.LoginToken", b =>
                 {
                     b.HasOne("GaloIrlanda.Api.Domain.User", null)
@@ -1138,6 +1753,31 @@ namespace GaloIrlanda.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_login_tokens_users_user_id");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Member", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.City", null)
+                        .WithMany()
+                        .HasForeignKey("CityCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_members_cities_city_code");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("ReferredBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_members_users_referred_by");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", "User")
+                        .WithOne()
+                        .HasForeignKey("GaloIrlanda.Api.Domain.Member", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_members_users_user_id");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.Milestone", b =>
@@ -1186,6 +1826,94 @@ namespace GaloIrlanda.Api.Data.Migrations
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("fk_photos_users_updated_by");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PhotoTag", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.Photo", null)
+                        .WithMany()
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_photo_tags_photos_photo_id");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("TaggedBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_photo_tags_users_tagged_by");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_photo_tags_users_user_id");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Poll", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_polls_users_created_by");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_polls_users_updated_by");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PollBallot", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.PollOption", null)
+                        .WithMany()
+                        .HasForeignKey("OptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_poll_ballots_poll_options_option_id");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.Poll", null)
+                        .WithMany()
+                        .HasForeignKey("PollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_poll_ballots_polls_poll_id");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_poll_ballots_users_user_id");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PollOption", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.Poll", null)
+                        .WithMany("Options")
+                        .HasForeignKey("PollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_poll_options_polls_poll_id");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.PollParticipation", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.Poll", null)
+                        .WithMany()
+                        .HasForeignKey("PollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_poll_participations_polls_poll_id");
+
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_poll_participations_users_user_id");
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.Post", b =>
@@ -1261,6 +1989,16 @@ namespace GaloIrlanda.Api.Data.Migrations
                     b.Navigation("HeroPhoto");
                 });
 
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Subscription", b =>
+                {
+                    b.HasOne("GaloIrlanda.Api.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_subscriptions_users_user_id");
+                });
+
             modelBuilder.Entity("GaloIrlanda.Api.Domain.UserRole", b =>
                 {
                     b.HasOne("GaloIrlanda.Api.Domain.User", null)
@@ -1299,6 +2037,11 @@ namespace GaloIrlanda.Api.Data.Migrations
                         .HasConstraintName("fk_venues_users_updated_by");
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("GaloIrlanda.Api.Domain.Poll", b =>
+                {
+                    b.Navigation("Options");
                 });
 
             modelBuilder.Entity("GaloIrlanda.Api.Domain.User", b =>

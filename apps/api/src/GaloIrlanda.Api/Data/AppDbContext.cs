@@ -20,6 +20,17 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
     public DbSet<SiteSettings> SiteSettings => Set<SiteSettings>();
     public DbSet<AuditEntry> AuditEntries => Set<AuditEntry>();
     public DbSet<SiteRebuildRequest> SiteRebuildRequests => Set<SiteRebuildRequest>();
+    public DbSet<Member> Members => Set<Member>();
+    public DbSet<Subscription> Subscriptions => Set<Subscription>();
+    public DbSet<StripeEvent> StripeEvents => Set<StripeEvent>();
+    public DbSet<EventRsvp> EventRsvps => Set<EventRsvp>();
+    public DbSet<Document> Documents => Set<Document>();
+    public DbSet<Poll> Polls => Set<Poll>();
+    public DbSet<PollOption> PollOptions => Set<PollOption>();
+    public DbSet<PollParticipation> PollParticipations => Set<PollParticipation>();
+    public DbSet<PollBallot> PollBallots => Set<PollBallot>();
+    public DbSet<Benefit> Benefits => Set<Benefit>();
+    public DbSet<PhotoTag> PhotoTags => Set<PhotoTag>();
 
     /// <summary>Chaves do cookie de sessão: sem persistir, cada restart no Fly desloga todo mundo.</summary>
     public DbSet<DataProtectionKey> DataProtectionKeys => Set<DataProtectionKey>();
@@ -27,6 +38,7 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("citext");
+        modelBuilder.HasSequence<int>(MemberConfiguration.NumberSequence);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }

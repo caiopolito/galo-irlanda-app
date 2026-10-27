@@ -11,6 +11,7 @@ using GaloIrlanda.Api.Features.Events;
 using GaloIrlanda.Api.Features.Health;
 using GaloIrlanda.Api.Features.History;
 using GaloIrlanda.Api.Features.Landing;
+using GaloIrlanda.Api.Features.Membership;
 using GaloIrlanda.Api.Features.Milestones;
 using GaloIrlanda.Api.Features.Photos;
 using GaloIrlanda.Api.Features.Posts;
@@ -21,6 +22,7 @@ using GaloIrlanda.Api.Features.Users;
 using GaloIrlanda.Api.Features.Venues;
 using GaloIrlanda.Api.Integrations.Email;
 using GaloIrlanda.Api.Integrations.Storage;
+using GaloIrlanda.Api.Integrations.Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -45,6 +47,8 @@ services.AddGaloCors(builder.Configuration);
 services.AddPublishing();
 services.AddStorage(builder.Configuration);
 services.AddPhotos();
+services.AddStripe(builder.Configuration);
+services.AddMembership();
 
 var app = builder.Build();
 
@@ -84,6 +88,7 @@ groups.MapUsersEndpoints();
 groups.MapHistoryEndpoints();
 groups.MapPublishingEndpoints();
 groups.MapLandingEndpoints();
+groups.MapMembershipEndpoints(app);
 
 await BootstrapAdmin.EnsureAsync(app.Services);
 
